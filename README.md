@@ -26,3 +26,4 @@ git remote -v
 origin	https://github.com/Heavy02011/donkeydocs.git (fetch)
 origin	https://github.com/Heavy02011/donkeydocs.git (push)
 ```
+2 follow [donkeydocs](https://github.com/autorope/donkeydocs/blob/Update_to_tf_29/docs/guide/robot_sbc/setup_jetson_nano.md#installation-for-donkey-car-main)
