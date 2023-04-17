@@ -30,7 +30,8 @@ origin	https://github.com/Heavy02011/donkeydocs.git (push)
 
 ## 3 jtop
 ![](media/jetson-jtop1.png)
-![](https://github.com/Heavy02011/donkeycar-test-tf_2_9/media/jetson-jtop4.png)
+![](media/jetson-jtop4.png)
+![](media/jetson-jtop7.png)
 
 ## 3 hints
 - [ ] give size of swapfile as default is 6 not 8 G, no way to change afterwards
