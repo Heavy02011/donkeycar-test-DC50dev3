@@ -48,60 +48,24 @@ origin	https://github.com/Heavy02011/donkeydocs.git (push)
 
 # PC Ubuntu 22.04, 16GB, NVIDIA GTX 1040Ti
 
+```mamba env create -f install/envs/ubuntu.yml``` takes "ages" and is not finishing the install
+so I copied another env and converted the ```install/envs/ubuntu.yaml``` to a ```ubuntu_requirements.txt```
+and installed that with ```pip install -r ubuntu_requrements.txt```:
+
 ```
-2031  mamba env create -f install/envs/ubuntu.yml
- 2032  conda create --name tf_2_9 --clone openai
- 2033  conda activate tf_2_9
- 2034  pip install -r ubuntu_requirements.txt 
- 2035  vi ubuntu_requirements.txt 
- 2036  pip install -r ubuntu_requirements.txt 
- 2037  vi ubuntu_requirements.txt 
- 2038  pip install -r ubuntu_requirements.txt 
- 2039  vi ubuntu_requirements.txt 
- 2040  python
- 2041  sudo apt install libopencv-dev python3-opencv
- 2042  pkg-config –modversion opencv4
- 2043  python
- 2044  vi ubuntu_requirements.txt 
- 2045  pip install -r ubuntu_requirements.txt 
- 2046  vi ubuntu_requirements.txt 
- 2047  pip install -r ubuntu_requirements.txt 
- 2048  pip install --upgrade pip setuptools
- 2049  pip cache purge
- 2050  pip install codecov
- 2051  vi ubuntu_requirements.txt 
- 2052  pip install -r ubuntu_requirements.txt 
- 2053  vi ubuntu_requirements.txt 
- 2054  pip install -r ubuntu_requirements.txt 
- 2055  vi ubuntu_requirements.txt 
- 2056  pip install -r ubuntu_requirements.txt 
- 2057  vi ubuntu_requirements.txt 
- 2058  pip install -r ubuntu_requirements.txt 
- 2059  history 
- 
- 2000  conda deactivate
- 2001  mamba info --envs
- 2002  free -h
- 2003  top
- 2004  mamba info --envs
- 2005  kill -9 5436
- 2006  cd install/
- 2007  cd envs/
- 2008  more ubuntu.yml 
- 2009  top
- 2010  kill -9 8803
- 2011  cd ..
- 2012  vi convert-yaml-req.py
- 2013  python convert-yaml-req.py install/envs/ubuntu.yml ubuntu_requirements.txt
- 2014  more ubuntu_requirements.txt 
- 2015  top
- 2016  kill -9 24530
- 2017  conda activate tf_2_9
- 2018  python
- 2019  history 
+conda create --name tf_2_9 --clone openai
+conda activate tf_2_9
+python convert-yaml-req.py install/envs/ubuntu.yml ubuntu_requirements.txt
+pip install -r ubuntu_requirements.txt 
+
+sudo apt install libopencv-dev python3-opencv
+pip install --upgrade pip setuptools
+pip cache purge
+pip install codecov 
 ```
+
+- ubuntu_requirements.txt 
 ```
-(tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/42-DIYrobocars/donkeycar$ more ubuntu_requirements.txt 
 numpy
 h5py
 pillow
@@ -133,14 +97,12 @@ pynmea2
 pyserial
 utm
 albumentations
-
 ```
 
-
-Check torch gpu
+- Check torch gpu
 ```
- 
- (tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/42-DIYrobocars/donkeycar$ python
+(tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/42-DIYrobocars/donkeycar$ 
+python
 Python 3.8.16 (default, Mar  2 2023, 03:21:46) 
 [GCC 11.2.0] :: Anaconda, Inc. on linux
 Type "help", "copyright", "credits" or "license" for more information.
@@ -155,11 +117,9 @@ True
 <torch.cuda.device object at 0x7ff9914e78b0>
 >>> torch.cuda.get_device_name(0)
 'NVIDIA GeForce GTX 1080 Ti'
->>> 
-
-
 ```
-# error when installing gym-donkeycar
+
+## error when installing gym-donkeycar
 ```
 (tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/42-DIYrobocars/gym-donkeycar$ pip install -e .[gym-donkeycar]
 Obtaining file:///media/rainer/_data/30-projects/42-DIYrobocars/gym-donkeycar
@@ -185,5 +145,4 @@ error: metadata-generation-failed
 
 note: This is an issue with the package mentioned above, not pip.
 hint: See above for details.
-
 ```
