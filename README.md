@@ -119,7 +119,7 @@ True
 'NVIDIA GeForce GTX 1080 Ti'
 ```
 
-- error when installing gym-donkeycar
+- gym-donkeycar
 ```
 (tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/42-DIYrobocars/gym-donkeycar$ pip install -e .[gym-donkeycar]
 Obtaining file:///media/rainer/_data/30-projects/42-DIYrobocars/gym-donkeycar
@@ -147,3 +147,54 @@ note: This is an issue with the package mentioned above, not pip.
 hint: See above for details.
 ```
 fixed with a ```pip uninstall gym``` and retrying ```pip install -e .[gym-donkeycar]```
+
+- ```donkey ui``` runs into error
+```
+(tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/mysims/tf_2_9/mycar$ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 60 --slave /usr/bin/g++ g++ /usr/bin/g++-11
+update-alternatives: using /usr/bin/gcc-11 to provide /usr/bin/gcc (gcc) in auto mode
+(tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/mysims/tf_2_9/mycar$ donkey ui
+________             ______                   _________              
+___  __ \_______________  /___________  __    __  ____/_____ ________
+__  / / /  __ \_  __ \_  //_/  _ \_  / / /    _  /    _  __ `/_  ___/
+_  /_/ // /_/ /  / / /  ,<  /  __/  /_/ /     / /___  / /_/ /_  /    
+/_____/ \____//_/ /_//_/|_| \___/_\__, /      \____/  \__,_/ /_/     
+                                 /____/                              
+
+using donkey v5.0.dev1 ...
+[INFO   ] [Logger      ] Record log in /home/rainer/.kivy/logs/kivy_23-04-17_3.txt
+INFO:kivy:Logger: Record log in /home/rainer/.kivy/logs/kivy_23-04-17_3.txt
+[INFO   ] [Kivy        ] v2.1.0
+INFO:kivy:Kivy: v2.1.0
+[INFO   ] [Kivy        ] Installed at "/home/rainer/anaconda3/envs/tf_2_9/lib/python3.8/site-packages/kivy/__init__.py"
+INFO:kivy:Kivy: Installed at "/home/rainer/anaconda3/envs/tf_2_9/lib/python3.8/site-packages/kivy/__init__.py"
+[INFO   ] [Python      ] v3.8.16 (default, Mar  2 2023, 03:21:46) 
+[GCC 11.2.0]
+INFO:kivy:Python: v3.8.16 (default, Mar  2 2023, 03:21:46) 
+[GCC 11.2.0]
+[INFO   ] [Python      ] Interpreter at "/home/rainer/anaconda3/envs/tf_2_9/bin/python"
+INFO:kivy:Python: Interpreter at "/home/rainer/anaconda3/envs/tf_2_9/bin/python"
+[INFO   ] [Logger      ] Purge log fired. Processing...
+INFO:kivy:Logger: Purge log fired. Processing...
+[INFO   ] [Logger      ] Purge finished!
+INFO:kivy:Logger: Purge finished!
+[INFO   ] [Factory     ] 189 symbols loaded
+INFO:kivy:Factory: 189 symbols loaded
+[INFO   ] [Image       ] Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+[INFO   ] [Text        ] Provider: sdl2
+INFO:kivy:Text: Provider: sdl2
+[INFO   ] [Window      ] Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+libGL error: MESA-LOADER: failed to open iris: /home/rainer/anaconda3/envs/tf_2_9/bin/../lib/libstdc++.so.6: version `GLIBCXX_3.4.30' not found (required by /lib/x86_64-linux-gnu/libLLVM-15.so.1) (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
+libGL error: failed to load driver: iris
+libGL error: MESA-LOADER: failed to open iris: /home/rainer/anaconda3/envs/tf_2_9/bin/../lib/libstdc++.so.6: version `GLIBCXX_3.4.30' not found (required by /lib/x86_64-linux-gnu/libLLVM-15.so.1) (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
+libGL error: failed to load driver: iris
+libGL error: MESA-LOADER: failed to open swrast: /usr/lib/dri/swrast_dri.so: cannot open shared object file: No such file or directory (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
+libGL error: failed to load driver: swrast
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  152 (GLX)
+  Minor opcode of failed request:  3 (X_GLXCreateContext)
+  Value in failed request:  0x0
+  Serial number of failed request:  96
+  Current serial number in output stream:  97
+```
