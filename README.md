@@ -34,8 +34,10 @@ origin	https://github.com/Heavy02011/donkeydocs.git (push)
 ![](media/jetson-jtop4.png)
 ![](media/jetson-jtop7.png)
 
-## 3.2 [OpenCV 4.6, tf 2.9, camera succesful](https://github.com/Heavy02011/donkeycar-test-tf_2_9/blob/main/test-result.md)
+## 3.2 [OpenCV 4.6, tf 2.9, camera succesful](httpsj://github.com/Heavy02011/donkeycar-test-tf_2_9/blob/main/test-result.md)
 
-## 3 hints
+## 3.3 [pytest results in some errors, permissions gpio?](https://github.com/Heavy02011/donkeycar-test-tf_2_9/blob/main/pytest-log.txt)
+
+## 3.4 hints
 - [ ] give size of swapfile as default is 6 not 8 G, no way to change afterwards
 - [ ] git checkout **main** NOT **tf_2_9**?
