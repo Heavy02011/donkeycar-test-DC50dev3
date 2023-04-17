@@ -146,4 +146,4 @@ error: metadata-generation-failed
 note: This is an issue with the package mentioned above, not pip.
 hint: See above for details.
 ```
-fixed with a ```pip uninstall gym``` and retrying.
+fixed with a ```pip uninstall gym``` and retrying ```pip install -e .[gym-donkeycar]```.
