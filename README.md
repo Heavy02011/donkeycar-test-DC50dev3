@@ -119,7 +119,7 @@ True
 'NVIDIA GeForce GTX 1080 Ti'
 ```
 
-## error when installing gym-donkeycar
+- error when installing gym-donkeycar
 ```
 (tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/42-DIYrobocars/gym-donkeycar$ pip install -e .[gym-donkeycar]
 Obtaining file:///media/rainer/_data/30-projects/42-DIYrobocars/gym-donkeycar
@@ -146,3 +146,4 @@ error: metadata-generation-failed
 note: This is an issue with the package mentioned above, not pip.
 hint: See above for details.
 ```
+fixed with a ```pip uninstall gym``` and retrying.
