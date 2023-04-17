@@ -159,3 +159,31 @@ True
 
 
 ```
+# error when installing gym-donkeycar
+```
+(tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/42-DIYrobocars/gym-donkeycar$ pip install -e .[gym-donkeycar]
+Obtaining file:///media/rainer/_data/30-projects/42-DIYrobocars/gym-donkeycar
+  Preparing metadata (setup.py) ... done
+WARNING: gym-donkeycar 1.3.0 does not provide the extra 'gym-donkeycar'
+Collecting gym==0.21 (from gym-donkeycar==1.3.0)
+  Downloading gym-0.21.0.tar.gz (1.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 14.7 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... error
+  error: subprocess-exited-with-error
+  
+  × python setup.py egg_info did not run successfully.
+  │ exit code: 1
+  ╰─> [1 lines of output]
+      error in gym setup command: 'extras_require' must be a dictionary whose values are strings or lists of strings containing valid project/version requirement specifiers.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
+
+```
