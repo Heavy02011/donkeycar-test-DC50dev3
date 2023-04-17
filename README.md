@@ -35,7 +35,7 @@ origin	https://github.com/Heavy02011/donkeydocs.git (push)
 ![](media/jetson-jtop4.png)
 ![](media/jetson-jtop7.png)
 
-## 2.2 [OpenCV 4.6, tf 2.9, camera succesful](httpsj://github.com/Heavy02011/donkeycar-test-tf_2_9/blob/main/test-result.md)
+## 2.2 [OpenCV 4.6, tf 2.9, camera succesful](https://github.com/Heavy02011/donkeycar-test-tf_2_9/blob/main/test-result.md)
 
 ## 2.3 [pytest results in some errors, permissions gpio?](https://github.com/Heavy02011/donkeycar-test-tf_2_9/blob/main/pytest-log.txt)
 
