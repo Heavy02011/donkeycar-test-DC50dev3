@@ -50,15 +50,16 @@ rostopic echo /joy
 ## store git credential
 ```
 sudo apt-get update
-sudo apt-get install libsecret-1-0 libsecret-1-dev
+sudo apt-get install libgnome-keyring-dev
 cd /tmp
 git clone https://github.com/git/git.git
-cd git/contrib/credential/libsecret
+cd git/contrib/credential/gnome-keyring
 make
 sudo make install
-make
-mv git-credential-libsecret /usr/local/bin/
-git config --global credential.helper /usr/local/bin/git-credential-libsecret
+cd /tmp/
+cd git/contrib/credential/gnome-keyring/
+sudo cp git-credential-gnome-keyring /usr/local/bin/
+git config --global credential.helper /usr/local/bin/git-credential-gnome-keyring
 ```
 
 ## SLAM_TOOLBOX
