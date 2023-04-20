@@ -47,5 +47,19 @@ show
 rostopic echo /joy
 ```
 
+## store git credential
+```
+sudo apt-get update
+sudo apt-get install libsecret-1-0 libsecret-1-dev
+cd /tmp
+git clone https://github.com/git/git.git
+cd git/contrib/credential/libsecret
+make
+sudo make install
+make
+mv git-credential-libsecret /usr/local/bin/
+git config --global credential.helper /usr/local/bin/git-credential-libsecret
+```
+
 ## SLAM_TOOLBOX
 https://github.com/SteveMacenski/slam_toolbox
