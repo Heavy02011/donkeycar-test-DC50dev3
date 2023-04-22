@@ -113,7 +113,7 @@ nmcli c up rbnano1-drivingnetwork
 nmcli c down rbnano1-drivingnetwork
 ```
 
-## ROS
+## [ROS](https://gist.github.com/Pyrestone/ef683aec160825eee5c252f22218ddb2)
 ```
 apt-cache search ros-melodic-driver-base
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
