@@ -129,7 +129,7 @@ sudo apt-get install ros-melodic-joy
 sudo apt-get install ros-melodic-slam-toolbox
 ```
 
-## lidar
+## lidar RPlidar
 install
 ```
 sudo apt-get install ros-melodic-rplidar-ros
@@ -139,6 +139,103 @@ run
 ```
 roslaunch rplidar_ros rplidar.launch
 ```
+
+## lidar D300
+```
+~/ldlidar_ros_ws$ roslaunch ldlidar_stl_ros/
+roslaunch ldlidar_stl_ros ld06.launch 
+roslaunch ldlidar_stl_ros viewer_ld06_kinetic_melodic.launch
+```
+
+## jetson-utils
+```
+sudo apt-get install libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev libgstreamer-plugins-good1.0-dev libgstreamer1.0-dev
+git clone https://github.com/GStreamer/gst-plugins-bad.git
+cd gst-plugins-bad
+git checkout 1.18.4  # Replace with the latest stable version of GStreamer
+./autogen.sh --noconfigure
+./configure --prefix=/usr --with-package-name="GStreamer Bad Plugins (Ubuntu)" --with-package-origin=https://ubuntu.com --disable-deprecated --disable-examples --disable-tests --disable-docs --disable-gtk-doc --disable-libnice --disable-libwebrtc --disable-lv2 --disable-modplug --disable-mpeg2enc --disable-nsf --disable-opus --disable-realtime --disable-sbc --disable-siren --disable-smoothstreaming --disable-sndfile --disable-soundtouch --disable-spandsp --disable-srtp --disable-teletext --disable-timidity --disable-vulkan --disable-wasapi --disable-wildmidi --disable-x265 --disable-zbar
+make -j$(nproc)
+sudo make install
+
+
+Navigate to the build directory:
+cd ~/workspace/jetson-utils/build
+Remove any previous build artifacts:
+rm -rf *
+Run CMake to configure the build:
+cmake ..
+Build the package:
+make
+Install the package:
+sudo make install
+
+Now the jetson-utils package should build successfully, and the missing json-glib/json-glib.h error should be resolved.
+
+
+
+ 1190  ll
+ 1191  cd build/
+ 1192  make
+ 1193  sudo apt-get install libsoup2.4-dev
+ 1194  make
+ 1195  sudo apt-get install gstreamer1.0-plugins-bad
+ 1196  rm -rf *
+ 1197  Reading state information... Done
+ 1198  cmake ..
+ 1199  make
+ 1200  (donkey) rainer@donkeynano10:~/projects/jetson-utils/build$ 
+ 1201  sudo apt-get install libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev libgstreamer-plugins-good1.0-dev libgstreamer1.0-dev
+ 1202  git clone https://github.com/GStreamer/gst-plugins-bad.git
+ 1203  cd gst-plugins-bad
+ 1204  git checkout 1.18.4  # Replace with the latest stable version of GStreamer
+ 1205  ./autogen.sh --noconfigure
+ 1206  ./configure --prefix=/usr --with-package-name="GStreamer Bad Plugins (Ubuntu)" --with-package-origin=https://ubuntu.com --disable-deprecated --disable-examples --disable-tests --disable-docs --disable-gtk-doc --disable-libnice --disable-libwebrtc --disable-lv2 --disable-modplug --disable-mpeg2enc --disable-nsf --disable-opus --disable-realtime --disable-sbc --disable-siren --disable-smoothstreaming --disable-sndfile --disable-soundtouch --disable-spandsp --disable-srtp --disable-teletext --disable-timidity --disable-vulkan --disable-wasapi --disable-wildmidi --disable-x265 --disable-zbar
+ 1207  make -j$(nproc)
+ 1208  sudo make install
+ 1209  ./configure --prefix=/usr --with-package-name="GStreamer Bad Plugins (Ubuntu)" --with-package-origin=https://ubuntu.com --disable-deprecated --disable-examples --disable-tests --disable-docs --disable-gtk-doc --disable-libnice --disable-libwebrtc --disable-lv2 --disable-modplug --disable-mpeg2enc --disable-nsf --disable-opus --disable-realtime --disable-sbc --disable-siren --disable-smoothstreaming --disable-sndfile --disable-soundtouch --disable-spandsp --disable-srtp --disable-teletext --disable-timidity --disable-vulkan --disable-wasapi --disable-wildmidi --disable-x265 --disable-zbar
+ 1210  ll
+ 1211  cd ..
+ 1212  \rm -r gst-plugins-bad/
+ 1213  rm -rf *
+ 1214  cmake ..
+ 1215  make
+ 1216  sudo apt-get install libjson-glib-dev
+ 1217  rm -rf *
+ 1218  cmake ..
+ 1219  make
+ 1220  sudo apt-get install libgstrtspserver-1.0-dev
+ 1221  rm -rf *
+ 1222  cmake ..
+ 1223  make
+ 1224  sudo make install
+ 1225  history 
+
+/usr/include/gstreamer-1.0/gst/opencv
+/usr/include/boost/compute/interop/opencv
+
+
+
+
+
+
+
+Regenerate response
+
+
+```
+
+## [camera](https://github.com/dusty-nv/ros_deep_learning)
+install
+```
+
+```
+run
+```
+
+```
+
+
 
 
 ## [SLAM_TOOLBOX](https://github.com/SteveMacenski/slam_toolbox)
@@ -165,4 +262,19 @@ rosrun rviz rviz -d /path/to/your/rb_slam_config.rviz
 
 ```
 
+## tf
+install
+```
+sudo apt-get update
+sudo apt-get install ros-noetic-tf
+```
+run
+```
+rosrun tf tf_monitor
+rosrun tf tf_monitor frame1 frame2
+```
 
+## rb_robot_slam
+```
+roslaunch rb_robot_slam rb-robot-slam.launch 
+```
