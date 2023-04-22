@@ -101,36 +101,11 @@ donkey calibrate --bus 1 --channel 0
 donkey calibrate --bus 1 --channel 1
 ```
 
-## hotspot
-rbnano1-drivingnetwork
+## [hotspot](https://medium.com/@jones.0bj3/wireless-networking-for-the-jetson-nano-and-rpi-504868dd1b3a)
 ```
-[connection]
-id=rbnano1-drivingnetwork
-uuid=5fa5eb54-e02b-465c-b497-4bc717ae22f4
-type=wifi
-autoconnect=false
-permissions=
+sudo -i -u rainer nmcli dev wifi hotspot ifname wlan1 ssid rbnano1-drivingnetwork password XXXXXXXX
+```
 
-[wifi]
-mac-address=5C:87:9C:1E:BB:4E
-mac-address-blacklist=
-mode=ap
-ssid=rbnano1-drivingnetwork
-
-[wifi-security]
-key-mgmt=wpa-psk
-psk=wurX32fgH678
-
-[ipv4]
-dns-search=
-method=shared
-
-[ipv6]
-addr-gen-mode=stable-privacy
-dns-search=
-ip6-privacy=0
-method=ignore
-~               
 ```
 ```
 cp rbnano1-drivingnetwork /etc/NetworkManager/system-connections/
