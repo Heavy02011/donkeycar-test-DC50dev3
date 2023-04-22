@@ -113,6 +113,56 @@ nmcli c up rbnano1-drivingnetwork
 nmcli c down rbnano1-drivingnetwork
 ```
 
+## ROS
+```
+apt-cache search ros-melodic-driver-base
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 
-## SLAM_TOOLBOX
-https://github.com/SteveMacenski/slam_toolbox
+sudo apt-get install ros-melodic-driver-base
+sudo apt-get install ros-melodic-desktop-full
+sudo apt-get install ros-melodic-turtlebot3 
+sudo apt-get install ros-melodic-joy
+sudo apt-get install ros-melodic-slam-toolbox
+```
+
+## lidar
+install
+```
+sudo apt-get install ros-melodic-rplidar-ros
+sudo chmod 666 /dev/ttyUSB0
+```
+run
+```
+roslaunch rplidar_ros rplidar.launch
+```
+
+
+## [SLAM_TOOLBOX](https://github.com/SteveMacenski/slam_toolbox)
+install
+```
+sudo apt install ros-melodic-slam-toolbox
+```
+config
+```
+cd /opt/ros/melodic/share/slam_toolbox/config/config.yaml
+```
+run
+```
+roslaunch slam_toolbox lifelong.launch 
+roslaunch slam_toolbox online_sync.launch slam_params_file:=/path/to/your/config.yaml
+
+roslaunch slam_toolbox online_sync.launch slam_params_file:=/home/rainer/catkin_ws/rb-slam-config.yaml
+
+```
+
+## rviz 
+```
+rosrun rviz rviz -d /path/to/your/rb_slam_config.rviz
+
+```
+
+
