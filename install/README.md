@@ -1,6 +1,34 @@
 # Install log
 This documents the installation apart from just testing branch tf_2_9.
 
+## [ade](https://gitlab.com/ApexAI/ade-cli/-/releases)
+```
+chmod +x ade
+ade
+./ade
+sudo mv ade /usr/local/bin/
+ade --version
+ade update-cli
+ade --version
+
+mkdir -p ~/adehome
+cd adehome/
+touch .adehome
+git clone https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto.git
+d AutowareAuto/
+git branch -a|grep etson
+git checkout f1tenth-devel-jetson
+
+cp ~/.bashrc ~/.bashrc.bak
+mv ~/.bashrc ~/adehome/.bashrc
+ln -s ~/adehome/.bashrc
+cd adehome/
+
+cd AutowareAuto/
+ade start --update --enter
+ade --rc .aderc-jetson-f1tenth start --update --enter  # NOT WORKING
+```
+
 ## [bluetooth autoconnector](https://github.com/noraworld/bluetoothctl-autoconnector.git)
 ```
 (donkey) rainer@donkeynano10:~/dev/bluetoothctl-autoconnector$ sudo bluetoothctl
@@ -61,6 +89,55 @@ cd git/contrib/credential/gnome-keyring/
 sudo cp git-credential-gnome-keyring /usr/local/bin/
 git config --global credential.helper /usr/local/bin/git-credential-gnome-keyring
 ```
+
+## pwm
+
+[x] throttle
+```
+donkey calibrate --bus 1 --channel 0
+```
+[x] steering
+```
+donkey calibrate --bus 1 --channel 1
+```
+
+## hotspot
+rbnano1-drivingnetwork
+```
+[connection]
+id=rbnano1-drivingnetwork
+uuid=5fa5eb54-e02b-465c-b497-4bc717ae22f4
+type=wifi
+autoconnect=false
+permissions=
+
+[wifi]
+mac-address=5C:87:9C:1E:BB:4E
+mac-address-blacklist=
+mode=ap
+ssid=rbnano1-drivingnetwork
+
+[wifi-security]
+key-mgmt=wpa-psk
+psk=wurX32fgH678
+
+[ipv4]
+dns-search=
+method=shared
+
+[ipv6]
+addr-gen-mode=stable-privacy
+dns-search=
+ip6-privacy=0
+method=ignore
+~               
+```
+```
+cp rbnano1-drivingnetwork /etc/NetworkManager/system-connections/
+nmcli c up rbnano1-drivingnetwork
+nmcli c down rbnano1-drivingnetwork
+```
+
 
 ## SLAM_TOOLBOX
 https://github.com/SteveMacenski/slam_toolbox
