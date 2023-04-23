@@ -256,6 +256,9 @@ roslaunch slam_toolbox online_sync.launch slam_params_file:=/path/to/your/config
 
 roslaunch slam_toolbox online_sync.launch slam_params_file:=/home/rainer/catkin_ws/rb-slam-config.yaml
 
+roslaunch slam_toolbox online_async.launch  args:='rb-slam-config.yaml'
+
+
 ```
 
 ## rviz 
@@ -279,4 +282,37 @@ rosrun tf tf_monitor frame1 frame2
 ## rb_robot_slam
 ```
 roslaunch rb_robot_slam rb-robot-slam.launch 
+```
+
+## ackerman_msg
+```
+sudo apt-get install ros-melodic-ackermann-msgs
+```
+
+## lidar udev
+
+### LDROBOT D300
+```
+lsusb
+Bus [Bus Number] Device [Device Number]: ID [idVendor]:[idProduct] [Device Manufacturer and Name]
+Bus 001 Device 010: ID 10c4:ea60 Cygnal Integrated Products, Inc. CP210x UART Bridge / myAVR mySmartUSB light
+```
+/etc/udev/rules.d/99-ldrobot-d300.rules 
+```
+KERNEL=="ttyACM[0-9]*", ACTION=="add", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE="0666", GROUP="dialout", SYMLINK+="sensors/hokuyo"
+```
+
+### RPlidar
+Bus 001 Device 011: ID 10c4:ea60 Cygnal Integrated Products, Inc. CP210x UART Bridge / myAVR mySmartUSB light
+
+/etc/udev/rules.d/99-rplidar.rules 
+```
+KERNEL=="ttyUSB[0-9]*", ACTION=="add", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE="0666", GROUP="dialout", SYMLINK+="sensors/hokuyo"
+```
+
+
+
+install
+```
+sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
