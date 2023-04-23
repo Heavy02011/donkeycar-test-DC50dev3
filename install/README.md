@@ -142,8 +142,10 @@ roslaunch rplidar_ros rplidar.launch
 
 ## lidar D300
 ```
-~/ldlidar_ros_ws$ roslaunch ldlidar_stl_ros/
-roslaunch ldlidar_stl_ros ld06.launch 
+cd ~/ldlidar_ros_ws$ 
+cattkin_make
+source devel/setup.bash
+#roslaunch ldlidar_stl_ros ld06.launch 
 roslaunch ldlidar_stl_ros viewer_ld06_kinetic_melodic.launch
 ```
 
