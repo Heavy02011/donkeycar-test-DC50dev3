@@ -18,6 +18,10 @@ rviz:
 Transform [sender=unknown_publisher]
 For frame [base_laser]: No transform to fixed frame [map]. TF error: [Could not find a connection between 'map' and 'base_laser' because they are not part of the same tree.Tf has two or more unconnected trees.]
 
-rosrun tf static_transform_publisher 0.0 0.0 0.0 0 0 0 base_laser map 100
+# OK??? rosrun tf static_transform_publisher 0.0 0.0 0.0 0 0 0 base_laser map 100
+
+rosrun tf static_transform_publisher 0.0 0.0 0.0 0 0 0 base_link laser 100
+
+
 
 ## [i2c](https://github.com/asibarr2/ros-pca9685-jetXavNX)
