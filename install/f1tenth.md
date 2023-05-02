@@ -21,7 +21,13 @@ For frame [base_laser]: No transform to fixed frame [map]. TF error: [Could not 
 # OK??? rosrun tf static_transform_publisher 0.0 0.0 0.0 0 0 0 base_laser map 100
 
 rosrun tf static_transform_publisher 0.0 0.0 0.0 0 0 0 base_link laser 100
-
+rosrun tf static_transform_publisher 0.0 0.0 0.0 0 0 0 base_footprint base_link 100
 
 
 ## [i2c](https://github.com/asibarr2/ros-pca9685-jetXavNX)
+"""
+│^C[ WARN] [1683012791.023864197]: Failed to compu
+│te odom pose, skipping scan ("base_footprint" pas
+│sed to lookupTransform argument source_frame does
+│ not exist. )
+"""
