@@ -1,4 +1,5 @@
 # Safety Node for Donkey Car
+* quick & dirty *
 
 ## [code in fork of donkeycar, branch tf_2_9](https://github.com/Heavy02011/donkeycar/tree/tf_2_9)
 - ```donkeycar/donkeycar/parts/lidar_hybo.py``` delivers distances & angles
