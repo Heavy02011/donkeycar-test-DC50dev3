@@ -3,7 +3,7 @@
 ## [code in fork of donkeycar, branch tf_2_9](https://github.com/Heavy02011/donkeycar/tree/tf_2_9)
 - ```donkeycar/donkeycar/parts/lidar_hybo.py``` delivers distances & angles
 
-- ```donkeycar/donkeycar/parts/safety.py``` is the actual safety node that uses lidar data and set throttle to zero when we are close to a collision, i.e.
+- ```donkeycar/donkeycar/parts/safety.py``` is the actual safety node that uses lidar data and sets throttle to zero when we are close to a collision, i.e.
     - angle    = 70  ... 110 deg
     - distance = 0.2 ... 1.0 m
 
@@ -20,6 +20,7 @@ if cfg.USE_LIDAR:
         print("YD Lidar not yet supported")
 
     #rbx>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
     if cfg.LIDAR_TYPE == 'HYBO':
         CLOCKWISE = 1
         COUNTER_CLOCKWISE = -1
@@ -38,11 +39,6 @@ if cfg.USE_LIDAR:
         # V.add(lidar, outputs=['measurements'], threaded=True)
         V.add(lidar, outputs=['measurements'], threaded=True)
 
-        # speed = 1 #m/s
-        # safety = Safety(speed)
-        # V.add(safety,
-        #     inputs=['speed', 'measurements', 'user/throttle'],
-        #     outputs=['emergency_braking', 'user/throttle'], threaded=False)
     #rbx<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     
 aiLauncher = AiLaunch(cfg.AI_LAUNCH_DURATION, cfg.AI_LAUNCH_THROTTLE, cfg.AI_LAUNCH_KEEP_ENABLED)
