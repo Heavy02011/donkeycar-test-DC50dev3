@@ -75,3 +75,35 @@ V.add(DriveMode(cfg.AI_THROTTLE_MULT),
         outputs=['steering', 'throttle'])
 ...
 ```
+## performance is a problem
+```
+INFO:donkeycar.parts.hybo_ilidar:HyboLidar total scan timfrom hybo import Lidar e = 169.3146412372589 seconds
+INFO:donkeycar.parts.hybo_ilidar:HyboLidar total scan count = 194873 scans
+INFO:donkeycar.parts.hybo_ilidar:HyboLidar total measurement count = 91622 measurements
+INFO:donkeycar.parts.hybo_ilidar:HyboLidar rate = 1150.951852574441 scans per second
+INFO:donkeycar.parts.hybo_ilidar:HyboLidar rate = 541.1345370398949 measurements per second
+INFO:donkeycar.parts.tub_v2:Closing tub /home/rainer/d2/data/tub_29_23-05-06
+INFO:donkeycar.vehicle:Part Profile Summary: (times in ms)
+INFO:donkeycar.vehicle:
++-----------------------+--------+--------+--------+--------+--------+--------+--------+
+|          part         |  max   |  min   |  avg   |  50%   |  90%   |  99%   | 99.9%  |
++-----------------------+--------+--------+--------+--------+--------+--------+--------+
+|       CSICamera       |  2.56  |  0.01  |  0.03  |  0.02  |  0.03  |  0.09  |  2.15  |
+|       HyboLidar       |  0.08  |  0.01  |  0.01  |  0.01  |  0.02  |  0.04  |  0.08  |
+|   LocalWebController  |  2.02  |  0.04  |  0.09  |  0.05  |  0.09  |  1.00  |  1.89  |
+| PS3JoystickController |  0.10  |  0.03  |  0.04  |  0.03  |  0.05  |  0.08  |  0.10  |
+|          Pipe         |  0.23  |  0.01  |  0.02  |  0.02  |  0.02  |  0.09  |  0.21  |
+|      ExplodeDict      |  0.10  |  0.01  |  0.02  |  0.01  |  0.02  |  0.03  |  0.09  |
+|     ThrottleFilter    |  0.03  |  0.01  |  0.02  |  0.02  |  0.02  |  0.02  |  0.03  |
+|   UserPilotCondition  |  0.11  |  0.02  |  0.02  |  0.02  |  0.02  |  0.06  |  0.10  |
+|     RecordTracker     |  0.47  |  0.01  |  0.03  |  0.02  |  0.02  |  0.27  |  0.46  |
+|        AiLaunch       |  0.25  |  0.02  |  0.02  |  0.02  |  0.02  |  0.07  |  0.22  |
+|         Safety        | 512.80 | 500.04 | 500.86 | 500.49 | 501.81 | 505.61 | 511.83 |
+|         Safety        | 510.24 | 500.05 | 500.91 | 500.49 | 502.32 | 506.81 | 510.02 |
+|       DriveMode       |  2.06  |  0.03  |  0.05  |  0.03  |  0.04  |  0.09  |  1.74  |
+|    ToggleRecording    |  1.66  |  0.02  |  0.07  |  0.02  |  0.03  |  1.09  |  1.57  |
+|      PWMSteering      |  0.15  |  0.03  |  0.04  |  0.04  |  0.04  |  0.09  |  0.14  |
+|      PWMThrottle      |  0.32  |  0.02  |  0.03  |  0.02  |  0.03  |  0.08  |  0.28  |
+|       TubWriter       | 20.61  |  8.25  | 11.82  | 10.96  | 15.70  | 20.31  | 20.58  |
++-----------------------+--------+--------+--------+--------+--------+--------+--------+
+```
