@@ -75,7 +75,7 @@ V.add(DriveMode(cfg.AI_THROTTLE_MULT),
         outputs=['steering', 'throttle'])
 ...
 ```
-## performance is a problem
+## performance is a problem, i.e. does not work threaded yet
 ```
 INFO:donkeycar.parts.hybo_ilidar:HyboLidar total scan timfrom hybo import Lidar e = 169.3146412372589 seconds
 INFO:donkeycar.parts.hybo_ilidar:HyboLidar total scan count = 194873 scans
