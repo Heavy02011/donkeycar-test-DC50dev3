@@ -24,6 +24,8 @@ docker run hello-world
 }
 ```
 
+## applications
+- [ ] https://github.com/JetsonHacksNano/installVSCode.git
 
 ## [ade](https://gitlab.com/ApexAI/ade-cli/-/releases)
 ```
