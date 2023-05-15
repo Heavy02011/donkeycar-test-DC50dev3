@@ -1,7 +1,7 @@
 # Install log n11
 This documents the installation apart from just testing branch tf_2_9.
 
-## docker
+## 1 docker
 - [x] run without sudo
 ```
 sudo groupadd docker
@@ -24,7 +24,7 @@ docker run hello-world
 }
 ```
 
-## applications
+## 2 applications
 - [x] https://github.com/JetsonHacksNano/installVSCode.git
 - [x] ```sudo apt install joystick jstest-gtk evtest```
 - [x] ```sudo apt update && sudo apt install libcurl4-gnutls-dev```
@@ -45,7 +45,7 @@ docker run hello-world
     ```
 - [ ] ...
 
-## networking
+## 3 networking
 
 - [x] [hotspot](https://medium.com/@jones.0bj3/wireless-networking-for-the-jetson-nano-and-rpi-504868dd1b3a)
 ```
