@@ -46,7 +46,7 @@ docker run hello-world
     ```
     git clone https://github.com/JetsonHacksNano/installSwapfile
     cd installSwapfile
-    ./installSwapfile.sh
+    ./installSwapfile.sh -s 8
     reboot 
     ```
 
