@@ -54,7 +54,20 @@ Attempting to connect to 7C:BB:8A:7A:2B:4B
 [CHG] Device 7C:BB:8A:7A:2B:4B Trusted: yes
 Changing 7C:BB:8A:7A:2B:4B trust succeeded
 ```
-
+## store git credential
+```
+sudo apt-get update
+sudo apt-get install libgnome-keyring-dev
+cd /tmp
+git clone https://github.com/git/git.git
+cd git/contrib/credential/gnome-keyring
+make
+sudo make install
+cd /tmp/
+cd git/contrib/credential/gnome-keyring/
+sudo cp git-credential-gnome-keyring /usr/local/bin/
+git config --global credential.helper /usr/local/bin/git-credential-gnome-keyring
+```
 
 ################################################################
 
@@ -103,20 +116,7 @@ show
 rostopic echo /joy
 ```
 
-## store git credential
-```
-sudo apt-get update
-sudo apt-get install libgnome-keyring-dev
-cd /tmp
-git clone https://github.com/git/git.git
-cd git/contrib/credential/gnome-keyring
-make
-sudo make install
-cd /tmp/
-cd git/contrib/credential/gnome-keyring/
-sudo cp git-credential-gnome-keyring /usr/local/bin/
-git config --global credential.helper /usr/local/bin/git-credential-gnome-keyring
-```
+
 
 ## pwm
 
