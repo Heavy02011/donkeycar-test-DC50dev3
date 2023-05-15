@@ -33,7 +33,7 @@ docker run hello-world
 ```
 sudo -i -u rainer nmcli dev wifi hotspot ifname wlan1 ssid rbnano1-drivingnetwork password XXXXXXXX
 ```
-- [bluetooth autoconnector](https://github.com/noraworld/bluetoothctl-autoconnector.git)
+- [x] [bluetooth autoconnector](https://github.com/noraworld/bluetoothctl-autoconnector.git)
 ```
 (donkey) rainer@donkeynano10:~/dev/bluetoothctl-autoconnector$ sudo bluetoothctl
 [bluetooth]# agent on
