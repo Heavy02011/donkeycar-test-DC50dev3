@@ -26,6 +26,8 @@ docker run hello-world
 
 ## applications
 - [x] https://github.com/JetsonHacksNano/installVSCode.git
+- [x] ```sudo apt install joystick jstest-gtk evtest```
+- [ ] ...
 
 ## networking
 
