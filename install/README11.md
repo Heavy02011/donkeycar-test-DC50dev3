@@ -8,7 +8,7 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 docker run hello-world
 ```
-- [ ] [default nvidia runtime](https://github.com/dusty-nv/jetson-containers)
+- [x] [default nvidia runtime](https://github.com/dusty-nv/jetson-containers)
 
 /etc/docker/daemon.json
 ```
@@ -25,7 +25,7 @@ docker run hello-world
 ```
 
 ## applications
-- [ ] https://github.com/JetsonHacksNano/installVSCode.git
+- [x] https://github.com/JetsonHacksNano/installVSCode.git
 
 ## [ade](https://gitlab.com/ApexAI/ade-cli/-/releases)
 ```
