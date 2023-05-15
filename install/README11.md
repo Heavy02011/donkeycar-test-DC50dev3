@@ -2,14 +2,15 @@
 This documents the installation apart from just testing branch tf_2_9.
 
 ## docker
-- run without sudo
+- [x] run without sudo
 ```
 sudo groupadd docker
 sudo usermod -aG docker $USER
 docker run hello-world
 ```
-- [default nvidia runtime](https://github.com/dusty-nv/jetson-containers)
-- /etc/docker/daemon.json
+- [ ] [default nvidia runtime](https://github.com/dusty-nv/jetson-containers)
+
+/etc/docker/daemon.json
 ```
 {
     "runtimes": {
