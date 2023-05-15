@@ -42,6 +42,21 @@ docker run hello-world
     cd git/contrib/credential/gnome-keyring/
     sudo cp git-credential-gnome-keyring /usr/local/bin/
     git config --global credential.helper /usr/local/bin/git-credential-gnome-keyring
+    
+    
+    
+    Install libsecret and the development libraries:
+
+    On Ubuntu/Debian:
+    sudo apt-get install libsecret-1-0 libsecret-1-dev
+    
+    Build and install git-credential-libsecret:
+    cd /usr/share/doc/git/contrib/credential/libsecret
+    sudo make
+
+    Configure Git to use git-credential-libsecret:
+    git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+    
     ```
 - [x] jtop
     ```
