@@ -42,7 +42,7 @@ docker run hello-world
     sudo apt-get install python3-pip
     sudo -H pip3 install jetson-stats
     ```
-- [ ] swap space 8GB
+- [x] swap space 8GB
     ```
     git clone https://github.com/JetsonHacksNano/installSwapfile
     cd installSwapfile
