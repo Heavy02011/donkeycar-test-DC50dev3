@@ -27,8 +27,22 @@ docker run hello-world
 ## applications
 - [x] https://github.com/JetsonHacksNano/installVSCode.git
 - [x] ```sudo apt install joystick jstest-gtk evtest```
-- [ ] ```sudo apt update && sudo apt install libcurl4-gnutls-dev```
-- [ ] ```sudo apt update && sudo apt install libssl-dev```
+- [x] ```sudo apt update && sudo apt install libcurl4-gnutls-dev```
+- [x] ```sudo apt update && sudo apt install libssl-dev```
+- [x] store git credential
+    ```
+    sudo apt-get update
+    sudo apt-get install libgnome-keyring-dev
+    cd /tmp
+    git clone https://github.com/git/git.git
+    cd git/contrib/credential/gnome-keyring
+    make
+    sudo make install
+    cd /tmp/
+    cd git/contrib/credential/gnome-keyring/
+    sudo cp git-credential-gnome-keyring /usr/local/bin/
+    git config --global credential.helper /usr/local/bin/git-credential-gnome-keyring
+    ```
 - [ ] ...
 
 ## networking
@@ -56,20 +70,7 @@ Attempting to connect to 7C:BB:8A:7A:2B:4B
 [CHG] Device 7C:BB:8A:7A:2B:4B Trusted: yes
 Changing 7C:BB:8A:7A:2B:4B trust succeeded
 ```
-## store git credential
-```
-sudo apt-get update
-sudo apt-get install libgnome-keyring-dev
-cd /tmp
-git clone https://github.com/git/git.git
-cd git/contrib/credential/gnome-keyring
-make
-sudo make install
-cd /tmp/
-cd git/contrib/credential/gnome-keyring/
-sudo cp git-credential-gnome-keyring /usr/local/bin/
-git config --global credential.helper /usr/local/bin/git-credential-gnome-keyring
-```
+
 
 ################################################################
 
