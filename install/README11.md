@@ -27,6 +27,15 @@ docker run hello-world
 ## applications
 - [x] https://github.com/JetsonHacksNano/installVSCode.git
 
+## networking
+
+- [hotspot](https://medium.com/@jones.0bj3/wireless-networking-for-the-jetson-nano-and-rpi-504868dd1b3a)
+```
+sudo -i -u rainer nmcli dev wifi hotspot ifname wlan1 ssid rbnano1-drivingnetwork password XXXXXXXX
+```
+
+
+
 ## [ade](https://gitlab.com/ApexAI/ade-cli/-/releases)
 ```
 chmod +x ade
@@ -125,11 +134,6 @@ donkey calibrate --bus 1 --channel 0
 [x] steering
 ```
 donkey calibrate --bus 1 --channel 1
-```
-
-## [hotspot](https://medium.com/@jones.0bj3/wireless-networking-for-the-jetson-nano-and-rpi-504868dd1b3a)
-```
-sudo -i -u rainer nmcli dev wifi hotspot ifname wlan1 ssid rbnano1-drivingnetwork password XXXXXXXX
 ```
 
 ```
