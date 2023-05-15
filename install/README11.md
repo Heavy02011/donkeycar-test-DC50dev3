@@ -51,20 +51,10 @@ Attempting to connect to 7C:BB:8A:7A:2B:4B
 [Nintendo RVL-CNT-01-UC]# trust 7C:BB:8A:7A:2B:4B 
 [CHG] Device 7C:BB:8A:7A:2B:4B Trusted: yes
 Changing 7C:BB:8A:7A:2B:4B trust succeeded
-[CHG] Device 7C:BB:8A:7A:2B:4B ServicesResolved: no
-[CHG] Device 7C:BB:8A:7A:2B:4B Connected: no
-[CHG] Device 7C:BB:8A:7A:2B:4B Connected: no
-[bluetooth]# connect 7C:BB:8A:7A:2B:4B 
-Attempting to connect to 7C:BB:8A:7A:2B:4B
-[CHG] Device 7C:BB:8A:7A:2B:4B Connected: yes
-Connection successful
-[CHG] Device 7C:BB:8A:7A:2B:4B ServicesResolved: yes
-[Nintendo RVL-CNT-01-UC]# trust 7C:BB:8A:7A:2B:4B 
-Changing 7C:BB:8A:7A:2B:4B trust succeeded
 ```
 
 
-
+################################################################
 
 ## [ade](https://gitlab.com/ApexAI/ade-cli/-/releases)
 ```
