@@ -133,7 +133,6 @@ donkey calibrate --bus 1 --channel 1
 ```
 
 ```
-```
 cp rbnano1-drivingnetwork /etc/NetworkManager/system-connections/
 nmcli c up rbnano1-drivingnetwork
 nmcli c down rbnano1-drivingnetwork
