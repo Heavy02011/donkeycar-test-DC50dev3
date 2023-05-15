@@ -1,6 +1,13 @@
 # Install log
 This documents the installation apart from just testing branch tf_2_9.
 
+## docker
+```
+sudo groupadd docker
+sudo usermod -aG docker $USER
+docker run hello-world
+```
+
 ## [ade](https://gitlab.com/ApexAI/ade-cli/-/releases)
 ```
 chmod +x ade
