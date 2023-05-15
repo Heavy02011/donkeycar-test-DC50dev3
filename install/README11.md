@@ -29,10 +29,40 @@ docker run hello-world
 
 ## networking
 
-- [hotspot](https://medium.com/@jones.0bj3/wireless-networking-for-the-jetson-nano-and-rpi-504868dd1b3a)
+- [x] [hotspot](https://medium.com/@jones.0bj3/wireless-networking-for-the-jetson-nano-and-rpi-504868dd1b3a)
 ```
 sudo -i -u rainer nmcli dev wifi hotspot ifname wlan1 ssid rbnano1-drivingnetwork password XXXXXXXX
 ```
+- [bluetooth autoconnector](https://github.com/noraworld/bluetoothctl-autoconnector.git)
+```
+(donkey) rainer@donkeynano10:~/dev/bluetoothctl-autoconnector$ sudo bluetoothctl
+[bluetooth]# agent on
+[bluetooth]# power on
+[bluetooth]# scan on
+Discovery started
+[NEW] Device 7C:BB:8A:7A:2B:4B 7C-BB-8A-7A-2B-4B
+[bluetooth]# connect 7C:BB:8A:7A:2B:4B 
+Attempting to connect to 7C:BB:8A:7A:2B:4B
+[CHG] Device 7C:BB:8A:7A:2B:4B Connected: yes
+[CHG] Device 7C:BB:8A:7A:2B:4B Modalias: usb:v057Ep0330d0001
+[CHG] Device 7C:BB:8A:7A:2B:4B UUIDs: 00001124-0000-1000-8000-00805f9b34fb
+[CHG] Device 7C:BB:8A:7A:2B:4B UUIDs: 00001200-0000-1000-8000-00805f9b34fb
+[CHG] Device 7C:BB:8A:7A:2B:4B ServicesResolved: yes
+[Nintendo RVL-CNT-01-UC]# trust 7C:BB:8A:7A:2B:4B 
+[CHG] Device 7C:BB:8A:7A:2B:4B Trusted: yes
+Changing 7C:BB:8A:7A:2B:4B trust succeeded
+[CHG] Device 7C:BB:8A:7A:2B:4B ServicesResolved: no
+[CHG] Device 7C:BB:8A:7A:2B:4B Connected: no
+[CHG] Device 7C:BB:8A:7A:2B:4B Connected: no
+[bluetooth]# connect 7C:BB:8A:7A:2B:4B 
+Attempting to connect to 7C:BB:8A:7A:2B:4B
+[CHG] Device 7C:BB:8A:7A:2B:4B Connected: yes
+Connection successful
+[CHG] Device 7C:BB:8A:7A:2B:4B ServicesResolved: yes
+[Nintendo RVL-CNT-01-UC]# trust 7C:BB:8A:7A:2B:4B 
+Changing 7C:BB:8A:7A:2B:4B trust succeeded
+```
+
 
 
 
@@ -64,35 +94,6 @@ ade start --update --enter
 ade --rc .aderc-jetson-f1tenth start --update --enter  # NOT WORKING
 ```
 
-## [bluetooth autoconnector](https://github.com/noraworld/bluetoothctl-autoconnector.git)
-```
-(donkey) rainer@donkeynano10:~/dev/bluetoothctl-autoconnector$ sudo bluetoothctl
-[bluetooth]# agent on
-[bluetooth]# power on
-[bluetooth]# scan on
-Discovery started
-[NEW] Device 7C:BB:8A:7A:2B:4B 7C-BB-8A-7A-2B-4B
-[bluetooth]# connect 7C:BB:8A:7A:2B:4B 
-Attempting to connect to 7C:BB:8A:7A:2B:4B
-[CHG] Device 7C:BB:8A:7A:2B:4B Connected: yes
-[CHG] Device 7C:BB:8A:7A:2B:4B Modalias: usb:v057Ep0330d0001
-[CHG] Device 7C:BB:8A:7A:2B:4B UUIDs: 00001124-0000-1000-8000-00805f9b34fb
-[CHG] Device 7C:BB:8A:7A:2B:4B UUIDs: 00001200-0000-1000-8000-00805f9b34fb
-[CHG] Device 7C:BB:8A:7A:2B:4B ServicesResolved: yes
-[Nintendo RVL-CNT-01-UC]# trust 7C:BB:8A:7A:2B:4B 
-[CHG] Device 7C:BB:8A:7A:2B:4B Trusted: yes
-Changing 7C:BB:8A:7A:2B:4B trust succeeded
-[CHG] Device 7C:BB:8A:7A:2B:4B ServicesResolved: no
-[CHG] Device 7C:BB:8A:7A:2B:4B Connected: no
-[CHG] Device 7C:BB:8A:7A:2B:4B Connected: no
-[bluetooth]# connect 7C:BB:8A:7A:2B:4B 
-Attempting to connect to 7C:BB:8A:7A:2B:4B
-[CHG] Device 7C:BB:8A:7A:2B:4B Connected: yes
-Connection successful
-[CHG] Device 7C:BB:8A:7A:2B:4B ServicesResolved: yes
-[Nintendo RVL-CNT-01-UC]# trust 7C:BB:8A:7A:2B:4B 
-Changing 7C:BB:8A:7A:2B:4B trust succeeded
-```
 
 ## [joystick](https://github.com/ros-drivers/joystick_drivers/tree/main/joy)
 install
