@@ -7,6 +7,21 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 docker run hello-world
 ```
+- [default nvidia runtime](https://github.com/dusty-nv/jetson-containers)
+- /etc/docker/daemon.json
+```
+{
+    "runtimes": {
+        "nvidia": {
+            "path": "nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    },
+
+    "default-runtime": "nvidia"
+}
+```
+
 
 ## [ade](https://gitlab.com/ApexAI/ade-cli/-/releases)
 ```
