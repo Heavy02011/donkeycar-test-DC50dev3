@@ -43,7 +43,12 @@ docker run hello-world
     sudo cp git-credential-gnome-keyring /usr/local/bin/
     git config --global credential.helper /usr/local/bin/git-credential-gnome-keyring
     ```
-- [ ] ...
+- [x] jtop
+    ```
+    sudo apt-get update
+    sudo apt-get install python3-pip
+    sudo -H pip3 install jetson-stats
+    ```
 
 ## 3 networking
 
