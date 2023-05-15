@@ -2,6 +2,7 @@
 This documents the installation apart from just testing branch tf_2_9.
 
 ## docker
+- run without sudo
 ```
 sudo groupadd docker
 sudo usermod -aG docker $USER
