@@ -1,7 +1,7 @@
 # Install log n12
 
 error
-"""
+```   
 rainer@donkeynano12:~/dev$ sudo apt-get upgrade -y
 Reading package lists... Done
 Building dependency tree       
@@ -46,4 +46,32 @@ dpkg: error processing package nvidia-l4t-bootloader (--configure):
 Errors were encountered while processing:
  nvidia-l4t-bootloader
 E: Sub-process /usr/bin/dpkg returned an error code (1)
-"""
+```
+
+fix
+```
+The error you're encountering seems to be caused by a conflict with the information that dpkg saves during the installation process. There's a workaround suggested on the NVIDIA developer forum that involves moving some directories around and forcing an installation. Here are the steps:
+
+Move /var/lib/dpkg/info/ to /var/lib/dpkg/backup/ and create a new /var/lib/dpkg/info/ directory:
+bash
+Copy code
+sudo mv /var/lib/dpkg/info/ /var/lib/dpkg/backup/
+sudo mkdir /var/lib/dpkg/info/
+Update your repositories and force an installation:
+sql
+Copy code
+sudo apt-get update
+sudo apt-get -f install
+Move the new structure from dpkg/info to the old info:
+bash
+Copy code
+sudo mv /var/lib/dpkg/info/* /var/lib/dpkg/backup/
+Remove the new dpkg structure folder and restore the old one:
+bash
+Copy code
+sudo rm -rf /var/lib/dpkg/info
+sudo mv /var/lib/dpkg/backup/ /var/lib/dpkg/info/
+Please note, if these steps are not followed, the script will continue to fail during installation. This is considered a "hacky" solution and doesn't require you to flash the device again​1​.
+
+As with any solution that involves moving system directories, please proceed with caution. Make sure you understand what each command does before executing it, and consider backing up any important data before proceeding.
+```
