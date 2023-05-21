@@ -48,7 +48,7 @@ Errors were encountered while processing:
 E: Sub-process /usr/bin/dpkg returned an error code (1)
 ```
 
-## fix
+## [fix](https://forums.developer.nvidia.com/t/solution-dpkg-error-processing-package-nvidia-l4t-bootloader-configure/208627)
 The error you're encountering seems to be caused by a conflict with the information that dpkg saves during the installation process. There's a workaround suggested on the NVIDIA developer forum that involves moving some directories around and forcing an installation. Here are the steps:
 
 Move /var/lib/dpkg/info/ to /var/lib/dpkg/backup/ and create a new /var/lib/dpkg/info/ directory:
