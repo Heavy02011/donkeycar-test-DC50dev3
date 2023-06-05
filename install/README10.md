@@ -127,6 +127,9 @@ donkey calibrate --bus 1 --channel 1
 ## [hotspot](https://medium.com/@jones.0bj3/wireless-networking-for-the-jetson-nano-and-rpi-504868dd1b3a)
 ```
 sudo -i -u rainer nmcli dev wifi hotspot ifname wlan1 ssid rbnano1-drivingnetwork password XXXXXXXX
+Device 'wlan0' successfully activated with '16432929-95f5-401c-b67e-99aaaa6bac30'.
+(donkey) rainer@donkeynano11:/etc/NetworkManager/system-connections$ sudo -i -u rainer nmcli dev wifi hotspot ifname wlan0 ssid rbnano1-drivingnetwork password ggggggg
+
 ```
 
 ```
