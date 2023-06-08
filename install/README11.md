@@ -53,6 +53,12 @@ docker run hello-world
 ## 3 networking
 
 - [x] [hotspot](https://medium.com/@jones.0bj3/wireless-networking-for-the-jetson-nano-and-rpi-504868dd1b3a)
+- [x] creating hotspot ```sudo -i -u rainer nmcli dev wifi hotspot ifname wlan1 ssid rbnano1-drivingnetwork password XXXXXXXX```
+  ```wlan1: 5C:87:9C:1E:BB:4E```
+- [x] starting hotspot at [boot](https://askubuntu.com/questions/48321/how-do-i-start-applications-automatically-on-login) ```nmcli c up rbnano1-drivingnetwork```
+- [x] plugin EDIMAX for internet connection 
+  ```wlan0: 74:DA:38:EA:0B:07```
+
 ```
 sudo -i -u rainer nmcli dev wifi hotspot ifname wlan1 ssid rbnano1-drivingnetwork password XXXXXXXX
 ```
@@ -75,7 +81,7 @@ Attempting to connect to 7C:BB:8A:7A:2B:4B
 [CHG] Device 7C:BB:8A:7A:2B:4B Trusted: yes
 Changing 7C:BB:8A:7A:2B:4B trust succeeded
 ```
-## donkey tf_2_9
+## donkey tf_2_9 environment ```donkey``` has the [problem of missing comput_53 capability](https://github.com/autorope/donkeycar/issues/1124)
 ```
 (donkey) rainer@donkeynano11:~/opencv/build$ python3
 Python 3.9.16 | packaged by conda-forge | (main, Feb  1 2023, 22:05:40) 
@@ -193,51 +199,18 @@ General configuration for OpenCV 4.6.0 =====================================
 
 ```
 
-## training
+
+
+
+## donkey tf_2_9 environment ```donkey241```
 ```
-(donkey) rainer@donkeynano11:~/data/d2$ python train.py --tub=data/tub_85_23-05-20/ --model=models/test.h5
-________             ______                   _________              
-___  __ \_______________  /___________  __    __  ____/_____ ________
-__  / / /  __ \_  __ \_  //_/  _ \_  / / /    _  /    _  __ `/_  ___/
-_  /_/ // /_/ /  / / /  ,<  /  __/  /_/ /     / /___  / /_/ /_  /    
-/_____/ \____//_/ /_//_/|_| \___/_\__, /      \____/  \__,_/ /_/     
-                                 /____/                              
+conda clone --name donkey241 --clone donkey
+conda activate donkey241
+pip uninstall tensorflow
+pip install tensorflow
 
-using donkey v5.0.dev1 ...
-INFO:numexpr.utils:NumExpr defaulting to 4 threads.
-Traceback (most recent call last):
-  File "/home/rainer/data/d2/train.py", line 17, in <module>
-    from donkeycar.pipeline.training import train
-  File "/home/rainer/projects/donkeycar/donkeycar/pipeline/training.py", line 16, in <module>
-    from donkeycar.pipeline.augmentations import ImageAugmentation
-  File "/home/rainer/projects/donkeycar/donkeycar/pipeline/augmentations.py", line 1, in <module>
-    import albumentations.core.transforms_interface
-  File "/home/rainer/mambaforge/envs/donkey/lib/python3.9/site-packages/albumentations/__init__.py", line 5, in <module>
-    from .augmentations import *
-  File "/home/rainer/mambaforge/envs/donkey/lib/python3.9/site-packages/albumentations/augmentations/__init__.py", line 2, in <module>
-    from .blur.functional import *
-  File "/home/rainer/mambaforge/envs/donkey/lib/python3.9/site-packages/albumentations/augmentations/blur/__init__.py", line 1, in <module>
-    from .functional import *
-  File "/home/rainer/mambaforge/envs/donkey/lib/python3.9/site-packages/albumentations/augmentations/blur/functional.py", line 5, in <module>
-    import cv2
-  File "/home/rainer/mambaforge/envs/donkey/lib/python3.9/site-packages/cv2/__init__.py", line 181, in <module>
-    bootstrap()
-  File "/home/rainer/mambaforge/envs/donkey/lib/python3.9/site-packages/cv2/__init__.py", line 153, in bootstrap
-    native_module = importlib.import_module("cv2")
-  File "/home/rainer/mambaforge/envs/donkey/lib/python3.9/importlib/__init__.py", line 127, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-ImportError: /usr/lib/aarch64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.30' not found (required by /home/rainer/mambaforge/envs/donkey/bin/../lib/./libicuuc.so.72)
-(donkey) rainer@donkeynano11:~/data/d2$ find /usr -name "libstdc++.so.6*"
-
-/usr/lib/aarch64-linux-gnu/libstdc++.so.6.0.25
-/usr/lib/aarch64-linux-gnu/libstdc++.so.6
-/usr/share/gdb/auto-load/usr/lib/aarch64-linux-gnu/libstdc++.so.6.0.25-gdb.py
-(donkey) rainer@donkeynano11:~/data/d2$ 
 
 ```
-
-
-
 
 ################################################################
 
