@@ -202,14 +202,26 @@ General configuration for OpenCV 4.6.0 =====================================
 
 
 
-## donkey tf_2_9 environment ```donkey241```
+## donkey tf_2_9 environment ```donkey212```
 ```
-conda clone --name donkey241 --clone donkey
-conda activate donkey241
+conda clone --name donkey212 --clone donkey
+conda activate donkey212
 pip uninstall tensorflow
 pip install tensorflow
+```
 
-
+checking tensorflow & OpenCV
+```
+(donkey212) rainer@donkeynano11:~$ python
+Python 3.9.16 | packaged by conda-forge | (main, Feb  1 2023, 22:05:40) 
+[GCC 11.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import tensorflow as tf
+>>> tf.sysconfig.get_build_info()
+OrderedDict([('is_cuda_build', False), ('is_rocm_build', False), ('is_tensorrt_build', False)])
+>>> import cv2
+>>> cv2.__version__
+'4.6.0'
 ```
 
 ################################################################
