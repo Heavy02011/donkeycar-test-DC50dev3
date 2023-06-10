@@ -49,6 +49,11 @@ docker run hello-world
     ./installSwapfile.sh -s 8
     reboot 
     ```
+- [x] sudo apt install curl
+- [x] sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+- [x] curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+- [x] sudo apt update && sudo apt-get install python3-rocker
+
 
 ## 3 networking
 
@@ -81,7 +86,7 @@ Attempting to connect to 7C:BB:8A:7A:2B:4B
 [CHG] Device 7C:BB:8A:7A:2B:4B Trusted: yes
 Changing 7C:BB:8A:7A:2B:4B trust succeeded
 ```
-## donkey tf_2_9 environment ```donkey``` has the [problem of missing comput_53 capability](https://github.com/autorope/donkeycar/issues/1124)
+## 4 donkey tf_2_9 environment ```donkey``` has the [problem of missing comput_53 capability](https://github.com/autorope/donkeycar/issues/1124)
 ```
 (donkey) rainer@donkeynano11:~/opencv/build$ python3
 Python 3.9.16 | packaged by conda-forge | (main, Feb  1 2023, 22:05:40) 
@@ -202,7 +207,7 @@ General configuration for OpenCV 4.6.0 =====================================
 
 
 
-## donkey tf_2_9 environment ```donkey212```
+## 5 donkey tf_2_9 environment ```donkey212```
 ```
 conda clone --name donkey212 --clone donkey
 conda activate donkey212
@@ -224,7 +229,35 @@ OrderedDict([('is_cuda_build', False), ('is_rocm_build', False), ('is_tensorrt_b
 '4.6.0'
 ```
 
+```
+conda env config vars set PYTHONMEM=2GB --name donkey212
+```
+
+## 6 Autoware, new 2023, [following](https://autowarefoundation.github.io/autoware-documentation/main/installation/autoware/docker-installation/) 
+
+```
+(donkey212) rainer@donkeynano11:~/projects/AutowareAuto$ 
+rocker --nvidia --x11 --user --volume $HOME/autoware -- ghcr.io/autowarefoundation/autoware-universe:humble-latest-cuda-arm64
+
+rocker -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --user --volume $HOME/autoware -- ghcr.io/autowarefoundation/autoware-universe:latest-cuda
+
+cd autoware
+mkdir src
+vcs import src < autoware.repos
+vcs pull src
+
+source /opt/ros/humble/setup.bash
+rosdep update
+rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+
+```
+
 ################################################################
+
+
+
 
 ## [ade](https://gitlab.com/ApexAI/ade-cli/-/releases)
 ```
