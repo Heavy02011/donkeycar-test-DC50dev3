@@ -252,6 +252,8 @@ sudp apt update
 rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
 
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+rainer@c698c1fe1075:~/autoware$ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-skip tensorrt_yolo
+
 
 ```
 
