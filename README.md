@@ -198,3 +198,13 @@ X Error of failed request:  BadValue (integer parameter out of range for operati
   Serial number of failed request:  96
   Current serial number in output stream:  97
 ```
+
+## convert old tub file sto v2
+```
+python /media/rainer/_data/30-projects/42-DIYrobocars/donkeycar/scripts/convert_to_tub_v2.py --tub=./data/tub_128_19-11-16 --output=tub_128_19-11-16-new
+
+129
+130
+130
+
+```

@@ -248,6 +248,7 @@ vcs pull src
 
 source /opt/ros/humble/setup.bash
 rosdep update
+sudp apt update
 rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
 
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
