@@ -248,11 +248,20 @@ vcs pull src
 
 source /opt/ros/humble/setup.bash
 rosdep update
-sudp apt update
+sudo apt update
 rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
 
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 rainer@c698c1fe1075:~/autoware$ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-skip tensorrt_yolo
+
+
+
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --parallel-workers 2 --packages-skip tensorrt_yolo
+
+  179 packages not processed
+^Crainer@cfc6e7dd709f:~/autoware$ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Relee --executor sequential --packages-skip eagleye_navigation
+
+
 
 
 ```
