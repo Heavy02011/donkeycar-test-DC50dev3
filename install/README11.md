@@ -235,9 +235,10 @@ conda env config vars set PYTHONMEM=2GB --name donkey212
 
 ## 6 Autoware, new 2023, [following](https://autowarefoundation.github.io/autoware-documentation/main/installation/autoware/docker-installation/) 
 
+build
 ```
 (donkey212) rainer@donkeynano11:~/projects/AutowareAuto$ 
-rocker --nvidia --x11 --user --volume $HOME/autoware -- ghcr.io/autowarefoundation/autoware-universe:humble-latest-cuda-arm64
+DIS: rocker --nvidia --x11 --user --volume $HOME/autoware -- ghcr.io/autowarefoundation/autoware-universe:humble-latest-cuda-arm64
 
 rocker -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --user --volume $HOME/autoware -- ghcr.io/autowarefoundation/autoware-universe:latest-cuda
 
@@ -247,23 +248,52 @@ vcs import src < autoware.repos
 vcs pull src
 
 source /opt/ros/humble/setup.bash
-rosdep update
 sudo apt update
+rosdep update
 rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
 
-colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
-rainer@c698c1fe1075:~/autoware$ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-skip tensorrt_yolo
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Relee --executor sequential 
+```
 
+persist
+```
+docker ps ---> {container_ID}
+docker commit {container_ID}  autoware-n11
+docker commit 33e91f955b74  autoware-n11
+docker tag autoware-n11 heavy02011/autoware-n11:20230619-JetsonNano-jp4.6.3
+docker push heavy02011/autoware-n11:20230619-JetsonNano-jp4.6.3
+```
 
+running persitet container *** FAILS ****
+```
+rocker -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --user --volume $HOME/autoware -- heavy02011/autoware-n11:20230619-JetsonNano-jp4.6.3
+##ghcr.io/autowarefoundation/autoware-universe:latest-cuda
+```
 
-colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --parallel-workers 2 --packages-skip tensorrt_yolo
+setup in container
+```
+sudp apt-get update
+sudo apt-get install tmux
 
-  179 packages not processed
-^Crainer@cfc6e7dd709f:~/autoware$ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Relee --executor sequential --packages-skip eagleye_navigation
+```
 
+show frames
+```
+rainer@d331c72b0bd1:~/autoware$ 
+ros2 run tf2_tool view_frames 
+```
 
+[testing](https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/#lane-change-scenario)
+```
+tmux
+gdown -O ~/autoware/map/ 'https://docs.google.com/uc?export=download&id=1499_nsbUbIeturZaDj7jhUownh5fvXHd'
+unzip -d ~/autoware/map ~/autoware_map/sample-map-planning.zip
 
+source ~/autoware/install/setup.bash
+ros2 launch autoware_launch planning_simulator.launch.xml map_path:=/home/rainer/autoware/map/sample-map-planning vehicle_model:=sample_vehicle sensor_model:=sample_sensor_kit
 
+source ~/autoware/install/setup.bash
+ros2 service call /api/operation_mode/change_to_autonomous autoware_adapi_v1_msgs/srv/ChangeOperationMode {}
 ```
 
 ################################################################
