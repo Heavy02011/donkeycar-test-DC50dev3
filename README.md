@@ -3,7 +3,7 @@ This documents the installation apart from just testing branch main of DC5.0dev3
 
 ![](./media/20230904-JetsonNonaoOrin-jtop-blank.png)
 
-## 1 [tests results](../logs/)
+## 1 [tests results](./logs/)
 - [Try01: original install/envs/jetson.yml](./logs/Try01_test-result.md)
 - [Try02: install/envs/jetson_rb2.yml without *opencv*](./logs/Try02_test-result.md)
 
