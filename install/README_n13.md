@@ -1,7 +1,17 @@
-# Install log n11
-This documents the installation apart from just testing branch tf_2_9.
+# Install log on SDCARD *n13* connected over USB
+This documents the installation apart from just testing branch main of DC5.0dev3.
 
-## 1 docker
+![](../media/20230904-JetsonNonaoOrin-jtop-blank.png)
+
+## 1 [tests results](../logs/)
+- [Try01: original install/envs/jetson.yml](../logs/Try01_test-result.md)
+- [Try02: install/envs/jetson_rb2.yml without *opencv*](../logs/Try02_test-result.md)
+
+<new stuff here>
+
+## 2 Legacy stuff
+
+### 2.1 docker
 - [x] run without sudo
 ```
 sudo groupadd docker
@@ -24,7 +34,7 @@ docker run hello-world
 }
 ```
 
-## 2 applications
+### 2.2 applications
 - [x] https://github.com/JetsonHacksNano/installVSCode.git
 - [x] ```sudo apt install joystick jstest-gtk evtest```
 - [x] ```sudo apt update && sudo apt install libcurl4-gnutls-dev```
