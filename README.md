@@ -1,186 +1,580 @@
-# donkeycar-test-DC50dev3
-testing https://github.com/autorope/donkeycar/tree/main
+# Install log on SDCARD *n13* connected over USB
+This documents the installation apart from just testing branch main of DC5.0dev3.
 
-# Jetson Nano Orin 8GB
+![](./media/20230904-JetsonNonaoOrin-jtop-blank.png)
 
-## 1 setup
+## 1 [tests results](../logs/)
+- [Try01: original install/envs/jetson.yml](../logs/Try01_test-result.md)
+- [Try02: install/envs/jetson_rb2.yml without *opencv*](../logs/Try02_test-result.md)
 
-### 1.2 follow [donkeydocs](https://github.com/autorope/donkeydocs/blob/Update_to_tf_29/docs/guide/robot_sbc/setup_jetson_nano.md#installation-for-donkey-car-main)
+<new stuff here>
 
-## 2 results
-## 2.1 jtop
-![](media/jetson-jtop1.png)
-![](media/jetson-jtop4.png)
-![](media/jetson-jtop7.png)
+## 2 Legacy stuff
 
-## 2.2 [OpenCV 4.6, tf 2.9, camera succesful](https://github.com/Heavy02011/donkeycar-test-tf_2_9/blob/main/test-result.md)
-
-## 2.3 [pytest results in some errors, permissions gpio?](https://github.com/Heavy02011/donkeycar-test-tf_2_9/blob/main/pytest-log.txt)
-
-## 2.4 hints
-- [ ] give size of swapfile as default is 6 not 8 G, no way to change afterwards
-- [ ] git checkout **main** NOT **tf_2_9**?
-
-
-# PC Ubuntu 22.04, 16GB, NVIDIA GTX 1040Ti
-
-```mamba env create -f install/envs/ubuntu.yml``` takes "ages" and is not finishing the install
-so I copied another env and converted the ```install/envs/ubuntu.yaml``` to a ```ubuntu_requirements.txt```
-and installed that with ```pip install -r ubuntu_requrements.txt```:
-
+### 2.1 docker
+- [x] run without sudo
 ```
-conda create --name tf_2_9 --clone openai
-conda activate tf_2_9
-python convert-yaml-req.py install/envs/ubuntu.yml ubuntu_requirements.txt
-pip install -r ubuntu_requirements.txt 
+sudo groupadd docker
+sudo usermod -aG docker $USER
+docker run hello-world
+```
+- [x] [default nvidia runtime](https://github.com/dusty-nv/jetson-containers)
 
-sudo apt install libopencv-dev python3-opencv
-pip install --upgrade pip setuptools
-pip cache purge
-pip install codecov 
+/etc/docker/daemon.json
+```
+{
+    "runtimes": {
+        "nvidia": {
+            "path": "nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    },
+
+    "default-runtime": "nvidia"
+}
 ```
 
-- ubuntu_requirements.txt 
-```
-numpy
-h5py
-pillow
-matplotlib
-tornado
-opencv-python
-docopt
-pandas
-pylint
-pytest
-pytest-cov
-#codecov
-pip
-progress
-paho-mqtt
-PrettyTable
-pyfiglet
-mypy
-#pytorch
-#torchvision==0.12
-#torchaudio
-#pytorch-lightning>=1.9,<2.0
-psutil
-plotly
-pyyaml
-tensorflow==2.9
-fastai
-pynmea2
-pyserial
-utm
-albumentations
-```
+### 2.2 applications
+- [x] https://github.com/JetsonHacksNano/installVSCode.git
+- [x] ```sudo apt install joystick jstest-gtk evtest```
+- [x] ```sudo apt update && sudo apt install libcurl4-gnutls-dev```
+- [x] ```sudo apt update && sudo apt install libssl-dev```
+- [x] store git credential
+    ```   
+    sudo apt-get install libsecret-1-0 libsecret-1-dev
+    cd /usr/share/doc/git/contrib/credential/libsecret
+    sudo make
+    git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret    
+    ```
+- [x] jtop
+    ```
+    sudo apt-get update
+    sudo apt-get install python3-pip
+    sudo -H pip3 install jetson-stats
+    ```
+- [x] swap space 8GB
+    ```
+    git clone https://github.com/JetsonHacksNano/installSwapfile
+    cd installSwapfile
+    ./installSwapfile.sh -s 8
+    reboot 
+    ```
+- [x] sudo apt install curl
+- [x] sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+- [x] curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+- [x] sudo apt update && sudo apt-get install python3-rocker
 
-- Check torch gpu
+
+## 3 networking
+
+- [x] [hotspot](https://medium.com/@jones.0bj3/wireless-networking-for-the-jetson-nano-and-rpi-504868dd1b3a)
+- [x] creating hotspot ```sudo -i -u rainer nmcli dev wifi hotspot ifname wlan1 ssid rbnano1-drivingnetwork password XXXXXXXX```
+  ```wlan1: 5C:87:9C:1E:BB:4E```
+- [x] starting hotspot at [boot](https://askubuntu.com/questions/48321/how-do-i-start-applications-automatically-on-login) ```nmcli c up rbnano1-drivingnetwork```
+- [x] plugin EDIMAX for internet connection 
+  ```wlan0: 74:DA:38:EA:0B:07```
+
 ```
-(tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/42-DIYrobocars/donkeycar$ 
-python
-Python 3.8.16 (default, Mar  2 2023, 03:21:46) 
-[GCC 11.2.0] :: Anaconda, Inc. on linux
+sudo -i -u rainer nmcli dev wifi hotspot ifname wlan1 ssid rbnano1-drivingnetwork password XXXXXXXX
+```
+- [x] [bluetooth autoconnector](https://github.com/noraworld/bluetoothctl-autoconnector.git)
+```
+(donkey) rainer@donkeynano10:~/dev/bluetoothctl-autoconnector$ sudo bluetoothctl
+[bluetooth]# agent on
+[bluetooth]# power on
+[bluetooth]# scan on
+Discovery started
+[NEW] Device 7C:BB:8A:7A:2B:4B 7C-BB-8A-7A-2B-4B
+[bluetooth]# connect 7C:BB:8A:7A:2B:4B 
+Attempting to connect to 7C:BB:8A:7A:2B:4B
+[CHG] Device 7C:BB:8A:7A:2B:4B Connected: yes
+[CHG] Device 7C:BB:8A:7A:2B:4B Modalias: usb:v057Ep0330d0001
+[CHG] Device 7C:BB:8A:7A:2B:4B UUIDs: 00001124-0000-1000-8000-00805f9b34fb
+[CHG] Device 7C:BB:8A:7A:2B:4B UUIDs: 00001200-0000-1000-8000-00805f9b34fb
+[CHG] Device 7C:BB:8A:7A:2B:4B ServicesResolved: yes
+[Nintendo RVL-CNT-01-UC]# trust 7C:BB:8A:7A:2B:4B 
+[CHG] Device 7C:BB:8A:7A:2B:4B Trusted: yes
+Changing 7C:BB:8A:7A:2B:4B trust succeeded
+```
+## 4 donkey tf_2_9 environment ```donkey``` has the [problem of missing comput_53 capability](https://github.com/autorope/donkeycar/issues/1124)
+```
+(donkey) rainer@donkeynano11:~/opencv/build$ python3
+Python 3.9.16 | packaged by conda-forge | (main, Feb  1 2023, 22:05:40) 
+[GCC 11.3.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
->>> import torch
->>> torch.cuda.is_available()
-True
->>> torch.cuda.device_count()
-1
->>> torch.cuda.current_device()
-0
->>> torch.cuda.device(0)
-<torch.cuda.device object at 0x7ff9914e78b0>
->>> torch.cuda.get_device_name(0)
-'NVIDIA GeForce GTX 1080 Ti'
+>>> import cv2
+>>> print(cv2.getBuildInformation()) 
+
+General configuration for OpenCV 4.6.0 =====================================
+  Version control:               unknown
+
+  Extra modules:
+    Location (extra):            /home/rainer/opencv_contrib/modules
+    Version control (extra):     unknown
+
+  Platform:
+    Timestamp:                   2023-05-15T21:19:12Z
+    Host:                        Linux 4.9.299-tegra aarch64
+    CMake:                       3.10.2
+    CMake generator:             Unix Makefiles
+    CMake build tool:            /usr/bin/make
+    Configuration:               RELEASE
+
+  CPU/HW features:
+    Baseline:                    NEON FP16
+      required:                  NEON
+
+  C/C++:
+    Built as dynamic libs?:      YES
+    C++ standard:                11
+    C++ Compiler:                /usr/bin/c++  (ver 7.5.0)
+    C++ flags (Release):         -fsigned-char -ffast-math -W -Wall -Wreturn-type -Wnon-virtual-dtor -Waddress -Wsequence-point -Wformat -Wformat-security -Wmissing-declarations -Wundef -Winit-self -Wpointer-arith -Wshadow -Wsign-promo -Wuninitialized -Wsuggest-override -Wno-delete-non-virtual-dtor -Wno-comment -Wimplicit-fallthrough=3 -Wno-strict-overflow -fdiagnostics-show-option -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections    -fvisibility=hidden -fvisibility-inlines-hidden -fopenmp -O3 -DNDEBUG  -DNDEBUG
+    C++ flags (Debug):           -fsigned-char -ffast-math -W -Wall -Wreturn-type -Wnon-virtual-dtor -Waddress -Wsequence-point -Wformat -Wformat-security -Wmissing-declarations -Wundef -Winit-self -Wpointer-arith -Wshadow -Wsign-promo -Wuninitialized -Wsuggest-override -Wno-delete-non-virtual-dtor -Wno-comment -Wimplicit-fallthrough=3 -Wno-strict-overflow -fdiagnostics-show-option -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections    -fvisibility=hidden -fvisibility-inlines-hidden -fopenmp -g  -O0 -DDEBUG -D_DEBUG
+    C Compiler:                  /usr/bin/cc
+    C flags (Release):           -fsigned-char -ffast-math -W -Wall -Wreturn-type -Waddress -Wsequence-point -Wformat -Wformat-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Wno-comment -Wimplicit-fallthrough=3 -Wno-strict-overflow -fdiagnostics-show-option -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections    -fvisibility=hidden -fopenmp -O3 -DNDEBUG  -DNDEBUG
+    C flags (Debug):             -fsigned-char -ffast-math -W -Wall -Wreturn-type -Waddress -Wsequence-point -Wformat -Wformat-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Wno-comment -Wimplicit-fallthrough=3 -Wno-strict-overflow -fdiagnostics-show-option -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections    -fvisibility=hidden -fopenmp -g  -O0 -DDEBUG -D_DEBUG
+    Linker flags (Release):      -Wl,--gc-sections -Wl,--as-needed -Wl,--no-undefined  
+    Linker flags (Debug):        -Wl,--gc-sections -Wl,--as-needed -Wl,--no-undefined  
+    ccache:                      NO
+    Precompiled headers:         NO
+    Extra dependencies:          m pthread cudart_static dl rt nppc nppial nppicc nppicom nppidei nppif nppig nppim nppist nppisu nppitc npps cublas cudnn cufft -L/usr/local/cuda/lib64 -L/usr/lib/aarch64-linux-gnu
+    3rdparty dependencies:
+
+  OpenCV modules:
+    To be built:                 alphamat aruco barcode bgsegm bioinspired calib3d ccalib core cudaarithm cudabgsegm cudacodec cudafeatures2d cudafilters cudaimgproc cudalegacy cudaobjdetect cudaoptflow cudastereo cudawarping cudev datasets dnn dnn_objdetect dnn_superres dpm face features2d flann freetype fuzzy gapi hdf hfs highgui img_hash imgcodecs imgproc intensity_transform line_descriptor mcc ml objdetect optflow phase_unwrapping photo plot python3 quality rapid reg rgbd saliency sfm shape stereo stitching structured_light superres surface_matching text tracking ts video videoio videostab wechat_qrcode xfeatures2d ximgproc xobjdetect xphoto
+    Disabled:                    python2 world
+    Disabled by dependency:      -
+    Unavailable:                 cvv java julia matlab ovis viz
+    Applications:                perf_tests apps
+    Documentation:               NO
+    Non-free algorithms:         YES
+
+  GUI:                           GTK3
+    GTK+:                        YES (ver 3.22.30)
+      GThread :                  YES (ver 2.56.4)
+      GtkGlExt:                  NO
+    VTK support:                 NO
+
+  Media I/O: 
+    ZLib:                        /usr/lib/aarch64-linux-gnu/libz.so (ver 1.2.11)
+    JPEG:                        /usr/lib/aarch64-linux-gnu/libjpeg.so (ver 80)
+    WEBP:                        /home/rainer/mambaforge/envs/donkey/lib/libwebp.so (ver encoder: 0x020f)
+    PNG:                         /usr/lib/aarch64-linux-gnu/libpng.so (ver 1.6.34)
+    TIFF:                        build (ver 42 - 4.2.0)
+    JPEG 2000:                   build (ver 2.4.0)
+    OpenEXR:                     build (ver 2.3.0)
+    HDR:                         YES
+    SUNRASTER:                   YES
+    PXM:                         YES
+    PFM:                         YES
+
+  Video I/O:
+    DC1394:                      YES (2.2.5)
+    FFMPEG:                      YES
+      avcodec:                   YES (57.107.100)
+      avformat:                  YES (57.83.100)
+      avutil:                    YES (55.78.100)
+      swscale:                   YES (4.8.100)
+      avresample:                YES (3.7.0)
+    GStreamer:                   YES (1.14.5)
+    v4l/v4l2:                    YES (linux/videodev2.h)
+
+  Parallel framework:            TBB (ver 2020.2 interface 11102)
+
+  Trace:                         YES (with Intel ITT)
+
+  Other third-party libraries:
+    Lapack:                      YES (/usr/lib/aarch64-linux-gnu/liblapack.so /usr/lib/aarch64-linux-gnu/libcblas.so /usr/lib/aarch64-linux-gnu/libatlas.so)
+    Eigen:                       YES (ver 3.3.4)
+    Custom HAL:                  YES (carotene (ver 0.0.1))
+    Protobuf:                    build (3.19.1)
+
+  NVIDIA CUDA:                   YES (ver 10.2, CUFFT CUBLAS FAST_MATH)
+    NVIDIA GPU arch:             53
+    NVIDIA PTX archs:
+
+  cuDNN:                         YES (ver 8.2.1)
+
+  Python 3:
+    Interpreter:                 /home/rainer/mambaforge/envs/donkey/bin/python3 (ver 3.9.16)
+    Libraries:                   /home/rainer/mambaforge/envs/donkey/lib/libpython3.9.so (ver 3.9.16)
+    numpy:                       /home/rainer/mambaforge/envs/donkey/lib/python3.9/site-packages/numpy/core/include (ver 1.24.3)
+    install path:                /home/rainer/mambaforge/envs/donkey/lib/python3.9/site-packages/cv2/python-3.9
+
+  Python (for build):            /usr/bin/python2.7
+
+  Java:                          
+    ant:                         NO
+    JNI:                         NO
+    Java wrappers:               NO
+    Java tests:                  NO
+
+  Install to:                    /home/rainer/mambaforge/envs/donkey
+-----------------------------------------------------------------
+
 ```
 
-- gym-donkeycar
+
+
+
+## 5 donkey tf_2_9 environment ```donkey212```
 ```
-(tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/42-DIYrobocars/gym-donkeycar$ pip install -e .[gym-donkeycar]
-Obtaining file:///media/rainer/_data/30-projects/42-DIYrobocars/gym-donkeycar
-  Preparing metadata (setup.py) ... done
-WARNING: gym-donkeycar 1.3.0 does not provide the extra 'gym-donkeycar'
-Collecting gym==0.21 (from gym-donkeycar==1.3.0)
-  Downloading gym-0.21.0.tar.gz (1.5 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 14.7 MB/s eta 0:00:00
-  Preparing metadata (setup.py) ... error
-  error: subprocess-exited-with-error
-  
-  × python setup.py egg_info did not run successfully.
-  │ exit code: 1
-  ╰─> [1 lines of output]
-      error in gym setup command: 'extras_require' must be a dictionary whose values are strings or lists of strings containing valid project/version requirement specifiers.
-      [end of output]
-  
-  note: This error originates from a subprocess, and is likely not a problem with pip.
-error: metadata-generation-failed
-
-× Encountered error while generating package metadata.
-╰─> See above for output.
-
-note: This is an issue with the package mentioned above, not pip.
-hint: See above for details.
-```
-fixed with a ```pip uninstall gym``` and retrying ```pip install -e .[gym-donkeycar]```
-
-- ```donkey ui``` runs into error
-```
-(tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/mysims/tf_2_9/mycar$ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 60 --slave /usr/bin/g++ g++ /usr/bin/g++-11
-update-alternatives: using /usr/bin/gcc-11 to provide /usr/bin/gcc (gcc) in auto mode
-(tf_2_9) rainer@neuron2204:/media/rainer/_data/30-projects/mysims/tf_2_9/mycar$ donkey ui
-________             ______                   _________              
-___  __ \_______________  /___________  __    __  ____/_____ ________
-__  / / /  __ \_  __ \_  //_/  _ \_  / / /    _  /    _  __ `/_  ___/
-_  /_/ // /_/ /  / / /  ,<  /  __/  /_/ /     / /___  / /_/ /_  /    
-/_____/ \____//_/ /_//_/|_| \___/_\__, /      \____/  \__,_/ /_/     
-                                 /____/                              
-
-using donkey v5.0.dev1 ...
-[INFO   ] [Logger      ] Record log in /home/rainer/.kivy/logs/kivy_23-04-17_3.txt
-INFO:kivy:Logger: Record log in /home/rainer/.kivy/logs/kivy_23-04-17_3.txt
-[INFO   ] [Kivy        ] v2.1.0
-INFO:kivy:Kivy: v2.1.0
-[INFO   ] [Kivy        ] Installed at "/home/rainer/anaconda3/envs/tf_2_9/lib/python3.8/site-packages/kivy/__init__.py"
-INFO:kivy:Kivy: Installed at "/home/rainer/anaconda3/envs/tf_2_9/lib/python3.8/site-packages/kivy/__init__.py"
-[INFO   ] [Python      ] v3.8.16 (default, Mar  2 2023, 03:21:46) 
-[GCC 11.2.0]
-INFO:kivy:Python: v3.8.16 (default, Mar  2 2023, 03:21:46) 
-[GCC 11.2.0]
-[INFO   ] [Python      ] Interpreter at "/home/rainer/anaconda3/envs/tf_2_9/bin/python"
-INFO:kivy:Python: Interpreter at "/home/rainer/anaconda3/envs/tf_2_9/bin/python"
-[INFO   ] [Logger      ] Purge log fired. Processing...
-INFO:kivy:Logger: Purge log fired. Processing...
-[INFO   ] [Logger      ] Purge finished!
-INFO:kivy:Logger: Purge finished!
-[INFO   ] [Factory     ] 189 symbols loaded
-INFO:kivy:Factory: 189 symbols loaded
-[INFO   ] [Image       ] Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
-INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
-[INFO   ] [Text        ] Provider: sdl2
-INFO:kivy:Text: Provider: sdl2
-[INFO   ] [Window      ] Provider: sdl2
-INFO:kivy:Window: Provider: sdl2
-libGL error: MESA-LOADER: failed to open iris: /home/rainer/anaconda3/envs/tf_2_9/bin/../lib/libstdc++.so.6: version `GLIBCXX_3.4.30' not found (required by /lib/x86_64-linux-gnu/libLLVM-15.so.1) (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
-libGL error: failed to load driver: iris
-libGL error: MESA-LOADER: failed to open iris: /home/rainer/anaconda3/envs/tf_2_9/bin/../lib/libstdc++.so.6: version `GLIBCXX_3.4.30' not found (required by /lib/x86_64-linux-gnu/libLLVM-15.so.1) (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
-libGL error: failed to load driver: iris
-libGL error: MESA-LOADER: failed to open swrast: /usr/lib/dri/swrast_dri.so: cannot open shared object file: No such file or directory (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
-libGL error: failed to load driver: swrast
-X Error of failed request:  BadValue (integer parameter out of range for operation)
-  Major opcode of failed request:  152 (GLX)
-  Minor opcode of failed request:  3 (X_GLXCreateContext)
-  Value in failed request:  0x0
-  Serial number of failed request:  96
-  Current serial number in output stream:  97
+conda clone --name donkey212 --clone donkey
+conda activate donkey212
+pip uninstall tensorflow
+pip install tensorflow
 ```
 
-## convert old tub file sto v2
+checking tensorflow & OpenCV
 ```
-python /media/rainer/_data/30-projects/42-DIYrobocars/donkeycar/scripts/convert_to_tub_v2.py --tub=./data/tub_128_19-11-16 --output=tub_128_19-11-16-new
+(donkey212) rainer@donkeynano11:~$ python
+Python 3.9.16 | packaged by conda-forge | (main, Feb  1 2023, 22:05:40) 
+[GCC 11.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import tensorflow as tf
+>>> tf.sysconfig.get_build_info()
+OrderedDict([('is_cuda_build', False), ('is_rocm_build', False), ('is_tensorrt_build', False)])
+>>> import cv2
+>>> cv2.__version__
+'4.6.0'
+```
 
-129
-130
-130
+```
+conda env config vars set PYTHONMEM=2GB --name donkey212
+```
 
+## 6 Autoware, new 2023, [following](https://autowarefoundation.github.io/autoware-documentation/main/installation/autoware/docker-installation/) 
+
+build
+```
+(donkey212) rainer@donkeynano11:~/projects/AutowareAuto$ 
+DIS: rocker --nvidia --x11 --user --volume $HOME/autoware -- ghcr.io/autowarefoundation/autoware-universe:humble-latest-cuda-arm64
+
+rocker -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --user --volume $HOME/autoware -- ghcr.io/autowarefoundation/autoware-universe:latest-cuda
+
+cd autoware
+mkdir src
+vcs import src < autoware.repos
+vcs pull src
+
+source /opt/ros/humble/setup.bash
+sudo apt update
+rosdep update
+rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Relee --executor sequential 
+```
+
+persist
+```
+docker ps ---> {container_ID}
+docker commit {container_ID}  autoware-n11
+docker commit 33e91f955b74  autoware-n11
+docker tag autoware-n11 heavy02011/autoware-n11:20230619-JetsonNano-jp4.6.3
+docker push heavy02011/autoware-n11:20230619-JetsonNano-jp4.6.3
+```
+
+running persitet container *** FAILS ****
+```
+rocker -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --user --volume $HOME/autoware -- heavy02011/autoware-n11:20230619-JetsonNano-jp4.6.3
+##ghcr.io/autowarefoundation/autoware-universe:latest-cuda
+```
+
+setup in container
+```
+sudp apt-get update
+sudo apt-get install tmux
+
+```
+
+show frames
+```
+rainer@d331c72b0bd1:~/autoware$ 
+ros2 run tf2_tool view_frames 
+```
+
+[testing](https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/#lane-change-scenario)
+```
+tmux
+gdown -O ~/autoware/map/ 'https://docs.google.com/uc?export=download&id=1499_nsbUbIeturZaDj7jhUownh5fvXHd'
+unzip -d ~/autoware/map ~/autoware_map/sample-map-planning.zip
+
+source ~/autoware/install/setup.bash
+ros2 launch autoware_launch planning_simulator.launch.xml map_path:=/home/rainer/autoware/map/sample-map-planning vehicle_model:=sample_vehicle sensor_model:=sample_sensor_kit
+
+source ~/autoware/install/setup.bash
+ros2 service call /api/operation_mode/change_to_autonomous autoware_adapi_v1_msgs/srv/ChangeOperationMode {}
+```
+
+################################################################
+
+
+
+
+## [ade](https://gitlab.com/ApexAI/ade-cli/-/releases)
+```
+chmod +x ade
+ade
+./ade
+sudo mv ade /usr/local/bin/
+ade --version
+ade update-cli
+ade --version
+
+mkdir -p ~/adehome
+cd adehome/
+touch .adehome
+git clone https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto.git
+d AutowareAuto/
+git branch -a|grep etson
+git checkout f1tenth-devel-jetson
+
+cp ~/.bashrc ~/.bashrc.bak
+mv ~/.bashrc ~/adehome/.bashrc
+ln -s ~/adehome/.bashrc
+cd adehome/
+
+cd AutowareAuto/
+ade start --update --enter
+ade --rc .aderc-jetson-f1tenth start --update --enter  # NOT WORKING
+```
+
+
+## [joystick](https://github.com/ros-drivers/joystick_drivers/tree/main/joy)
+install
+```
+sudo apt install joystick jstest-gtk evtest
+sudo apt-get install ros-melodic-joy
+git clone https://github.com/ros-drivers/joystick_drivers.git
+```
+launch
+```
+rosrun joy joy_node _dev_name:="*"
+```
+show
+```
+rostopic echo /joy
+```
+
+
+
+## pwm
+
+[x] throttle
+```
+donkey calibrate --bus 1 --channel 0
+```
+[x] steering
+```
+donkey calibrate --bus 1 --channel 1
+```
+
+```
+cp rbnano1-drivingnetwork /etc/NetworkManager/system-connections/
+nmcli c up rbnano1-drivingnetwork
+nmcli c down rbnano1-drivingnetwork
+```
+
+## [ROS](https://gist.github.com/Pyrestone/ef683aec160825eee5c252f22218ddb2)
+```
+apt-cache search ros-melodic-driver-base
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+
+sudo apt-get install ros-melodic-driver-base
+sudo apt-get install ros-melodic-desktop-full
+sudo apt-get install ros-melodic-turtlebot3 
+sudo apt-get install ros-melodic-joy
+sudo apt-get install ros-melodic-slam-toolbox
+```
+
+## lidar RPlidar
+install
+```
+sudo apt-get install ros-melodic-rplidar-ros
+sudo chmod 666 /dev/ttyUSB0
+```
+run
+```
+roslaunch rplidar_ros rplidar.launch
+```
+
+## lidar D300
+```
+cd ~/ldlidar_ros_ws$ 
+cattkin_make
+source devel/setup.bash
+#roslaunch ldlidar_stl_ros ld06.launch 
+roslaunch ldlidar_stl_ros viewer_ld06_kinetic_melodic.launch
+```
+
+## jetson-utils
+```
+sudo apt-get install libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev libgstreamer-plugins-good1.0-dev libgstreamer1.0-dev
+git clone https://github.com/GStreamer/gst-plugins-bad.git
+cd gst-plugins-bad
+git checkout 1.18.4  # Replace with the latest stable version of GStreamer
+./autogen.sh --noconfigure
+./configure --prefix=/usr --with-package-name="GStreamer Bad Plugins (Ubuntu)" --with-package-origin=https://ubuntu.com --disable-deprecated --disable-examples --disable-tests --disable-docs --disable-gtk-doc --disable-libnice --disable-libwebrtc --disable-lv2 --disable-modplug --disable-mpeg2enc --disable-nsf --disable-opus --disable-realtime --disable-sbc --disable-siren --disable-smoothstreaming --disable-sndfile --disable-soundtouch --disable-spandsp --disable-srtp --disable-teletext --disable-timidity --disable-vulkan --disable-wasapi --disable-wildmidi --disable-x265 --disable-zbar
+make -j$(nproc)
+sudo make install
+
+
+Navigate to the build directory:
+cd ~/workspace/jetson-utils/build
+Remove any previous build artifacts:
+rm -rf *
+Run CMake to configure the build:
+cmake ..
+Build the package:
+make
+Install the package:
+sudo make install
+
+Now the jetson-utils package should build successfully, and the missing json-glib/json-glib.h error should be resolved.
+
+
+
+ 1190  ll
+ 1191  cd build/
+ 1192  make
+ 1193  sudo apt-get install libsoup2.4-dev
+ 1194  make
+ 1195  sudo apt-get install gstreamer1.0-plugins-bad
+ 1196  rm -rf *
+ 1197  Reading state information... Done
+ 1198  cmake ..
+ 1199  make
+ 1200  (donkey) rainer@donkeynano10:~/projects/jetson-utils/build$ 
+ 1201  sudo apt-get install libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev libgstreamer-plugins-good1.0-dev libgstreamer1.0-dev
+ 1202  git clone https://github.com/GStreamer/gst-plugins-bad.git
+ 1203  cd gst-plugins-bad
+ 1204  git checkout 1.18.4  # Replace with the latest stable version of GStreamer
+ 1205  ./autogen.sh --noconfigure
+ 1206  ./configure --prefix=/usr --with-package-name="GStreamer Bad Plugins (Ubuntu)" --with-package-origin=https://ubuntu.com --disable-deprecated --disable-examples --disable-tests --disable-docs --disable-gtk-doc --disable-libnice --disable-libwebrtc --disable-lv2 --disable-modplug --disable-mpeg2enc --disable-nsf --disable-opus --disable-realtime --disable-sbc --disable-siren --disable-smoothstreaming --disable-sndfile --disable-soundtouch --disable-spandsp --disable-srtp --disable-teletext --disable-timidity --disable-vulkan --disable-wasapi --disable-wildmidi --disable-x265 --disable-zbar
+ 1207  make -j$(nproc)
+ 1208  sudo make install
+ 1209  ./configure --prefix=/usr --with-package-name="GStreamer Bad Plugins (Ubuntu)" --with-package-origin=https://ubuntu.com --disable-deprecated --disable-examples --disable-tests --disable-docs --disable-gtk-doc --disable-libnice --disable-libwebrtc --disable-lv2 --disable-modplug --disable-mpeg2enc --disable-nsf --disable-opus --disable-realtime --disable-sbc --disable-siren --disable-smoothstreaming --disable-sndfile --disable-soundtouch --disable-spandsp --disable-srtp --disable-teletext --disable-timidity --disable-vulkan --disable-wasapi --disable-wildmidi --disable-x265 --disable-zbar
+ 1210  ll
+ 1211  cd ..
+ 1212  \rm -r gst-plugins-bad/
+ 1213  rm -rf *
+ 1214  cmake ..
+ 1215  make
+ 1216  sudo apt-get install libjson-glib-dev
+ 1217  rm -rf *
+ 1218  cmake ..
+ 1219  make
+ 1220  sudo apt-get install libgstrtspserver-1.0-dev
+ 1221  rm -rf *
+ 1222  cmake ..
+ 1223  make
+ 1224  sudo make install
+ 1225  history 
+
+/usr/include/gstreamer-1.0/gst/opencv
+/usr/include/boost/compute/interop/opencv
+
+
+
+
+
+
+
+Regenerate response
+
+
+```
+
+## [camera](https://github.com/dusty-nv/ros_deep_learning)
+install
+```
+
+```
+run
+```
+
+```
+
+
+
+
+## [SLAM_TOOLBOX](https://github.com/SteveMacenski/slam_toolbox)
+install
+```
+sudo apt install ros-melodic-slam-toolbox
+```
+config
+```
+cd /opt/ros/melodic/share/slam_toolbox/config/config.yaml
+```
+run
+```
+roslaunch slam_toolbox lifelong.launch 
+roslaunch slam_toolbox online_sync.launch slam_params_file:=/path/to/your/config.yaml
+
+roslaunch slam_toolbox online_sync.launch slam_params_file:=/home/rainer/catkin_ws/rb-slam-config.yaml
+
+roslaunch slam_toolbox online_async.launch  args:='rb-slam-config.yaml'
+
+
+```
+
+## rviz 
+```
+rosrun rviz rviz -d /path/to/your/rb_slam_config.rviz
+
+```
+
+## tf
+install
+```
+sudo apt-get update
+sudo apt-get install ros-noetic-tf
+```
+run
+```
+rosrun tf tf_monitor
+rosrun tf tf_monitor frame1 frame2
+```
+
+## rb_robot_slam
+```
+roslaunch rb_robot_slam rb-robot-slam.launch 
+```
+
+## ackerman_msg
+```
+sudo apt-get install ros-melodic-ackermann-msgs
+```
+
+## lidar udev
+
+### LDROBOT D300
+```
+lsusb
+Bus [Bus Number] Device [Device Number]: ID [idVendor]:[idProduct] [Device Manufacturer and Name]
+Bus 001 Device 010: ID 10c4:ea60 Cygnal Integrated Products, Inc. CP210x UART Bridge / myAVR mySmartUSB light
+```
+/etc/udev/rules.d/99-ldrobot-d300.rules 
+```
+KERNEL=="ttyACM[0-9]*", ACTION=="add", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE="0666", GROUP="dialout", SYMLINK+="sensors/hokuyo"
+```
+
+### RPlidar
+Bus 001 Device 011: ID 10c4:ea60 Cygnal Integrated Products, Inc. CP210x UART Bridge / myAVR mySmartUSB light
+
+/etc/udev/rules.d/99-rplidar.rules 
+```
+KERNEL=="ttyUSB[0-9]*", ACTION=="add", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE="0666", GROUP="dialout", SYMLINK+="sensors/hokuyo"
+```
+
+
+
+install
+```
+sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
