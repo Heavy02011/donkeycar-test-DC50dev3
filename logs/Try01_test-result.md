@@ -1,7 +1,54 @@
 # Try01: OpenCV
 *using donkeycar/install/envs/jetson.yml*
 
-problem:
+error message:
+```
+(donkey) rainer@ubuntu:~/mycar$ python manage.py drive
+________             ______                   _________              
+___  __ \_______________  /___________  __    __  ____/_____ ________
+__  / / /  __ \_  __ \_  //_/  _ \_  / / /    _  /    _  __ `/_  ___/
+_  /_/ // /_/ /  / / /  ,<  /  __/  /_/ /     / /___  / /_/ /_  /    
+/_____/ \____//_/ /_//_/|_| \___/_\__, /      \____/  \__,_/ /_/     
+                                 /____/                              
+
+using donkey v5.0.dev3 ...
+INFO:donkeycar.config:loading config file: /home/rainer/mycar/config.py
+INFO:donkeycar.config:loading personal config over-rides from myconfig.py
+INFO:__main__:PID: 9006
+WARNING: Carrier board is not from a Jetson Developer Kit.
+WARNNIG: Jetson.GPIO library has not been verified with this carrier board,
+WARNING: and in fact is unlikely to work correctly.
+WARNING:donkeycar.parts.pins:pigpio was not imported.
+cfg.CAMERA_TYPE CSIC
+INFO:__main__:cfg.CAMERA_TYPE CSIC
+Traceback (most recent call last):
+  File "manage.py", line 1142, in <module>
+    drive(cfg, model_path=args['--model'], use_joystick=args['--js'],
+  File "manage.py", line 104, in drive
+    add_camera(V, cfg, camera_type)
+  File "manage.py", line 880, in add_camera
+    cam = get_camera(cfg)
+  File "manage.py", line 808, in get_camera
+    cam = CSICamera(image_w=cfg.IMAGE_W, image_h=cfg.IMAGE_H, image_d=cfg.IMAGE_DEPTH,
+  File "/home/rainer/projects/donkeycar/donkeycar/parts/camera.py", line 218, in __init__
+    self.init_camera()
+  File "/home/rainer/projects/donkeycar/donkeycar/parts/camera.py", line 222, in init_camera
+    import cv2
+  File "/home/rainer/miniconda3/envs/donkey/lib/python3.8/site-packages/cv2/__init__.py", line 181, in <module>
+    bootstrap()
+  File "/home/rainer/miniconda3/envs/donkey/lib/python3.8/site-packages/cv2/__init__.py", line 175, in bootstrap
+    if __load_extra_py_code_for_module("cv2", submodule, DEBUG):
+  File "/home/rainer/miniconda3/envs/donkey/lib/python3.8/site-packages/cv2/__init__.py", line 28, in __load_extra_py_code_for_module
+    py_module = importlib.import_module(module_name)
+  File "/home/rainer/miniconda3/envs/donkey/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "/home/rainer/miniconda3/envs/donkey/lib/python3.8/site-packages/cv2/typing/__init__.py", line 94, in <module>
+    MatLike = typing.Union[cv2.mat_wrapper.Mat, NumPyArrayGeneric]
+AttributeError: partially initialized module 'cv2' has no attribute 'mat_wrapper' (most likely due to a circular import)
+```
+
+
+probable problem:
 ```
 conda list | grep opencv
 opencv                    4.6.0            py38h5f62720_5  

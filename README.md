@@ -1,7 +1,7 @@
 # Install log on SDCARD *n13* connected over USB
 This documents the installation apart from just testing branch main of DC5.0dev3.
 
-![](./media/20230904-JetsonNonaoOrin-jtop-blank.png)
+![](./media/20230904-JetsonNonaoOrin-jtop-blank.jpg)
 
 ## 1 [tests results](./logs/)
 - [Try01: original install/envs/jetson.yml](./logs/Try01_test-result.md)
