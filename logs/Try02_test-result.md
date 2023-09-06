@@ -216,3 +216,112 @@ fail USING python in environment:
 nvarguscamerasrc sensor-id=0 ! video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, framerate=(fraction)30/1 ! nvvidconv flip-method=0 ! video/x-raw, width=(int)960, height=(int)540, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink
 Error: Unable to open camera
 ```
+
+cv2 build info on system:
+```
+rainer@donkey-orin:~/projects/donkeycar-test-DC50dev3$ python
+Python 2.7.18 (default, Jul  1 2022, 12:27:04) 
+[GCC 9.4.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import cv2
+>>> print(cv2.getBuildInformation())
+
+General configuration for OpenCV 4.5.4 =====================================
+  Version control:               4.5.4-8-g3e4c170df4
+
+  Platform:
+    Timestamp:                   2022-01-18T10:01:01Z
+    Host:                        Linux 5.10.65-tegra aarch64
+    CMake:                       3.16.3
+    CMake generator:             Unix Makefiles
+    CMake build tool:            /usr/bin/make
+    Configuration:               Release
+
+  CPU/HW features:
+    Baseline:                    NEON FP16
+
+  C/C++:
+    Built as dynamic libs?:      YES
+    C++ standard:                11
+    C++ Compiler:                /usr/bin/c++  (ver 9.3.0)
+    C++ flags (Release):         -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wundef -Winit-self -Wpointer-arith -Wshadow -Wsign-promo -Wuninitialized -Wsuggest-override -Wno-delete-non-virtual-dtor -Wno-comment -Wimplicit-fallthrough=3 -Wno-strict-overflow -fdiagnostics-show-option -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections    -fvisibility=hidden -fvisibility-inlines-hidden -O3 -DNDEBUG  -DNDEBUG
+    C++ flags (Debug):           -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wundef -Winit-self -Wpointer-arith -Wshadow -Wsign-promo -Wuninitialized -Wsuggest-override -Wno-delete-non-virtual-dtor -Wno-comment -Wimplicit-fallthrough=3 -Wno-strict-overflow -fdiagnostics-show-option -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections    -fvisibility=hidden -fvisibility-inlines-hidden -g  -O0 -DDEBUG -D_DEBUG
+    C Compiler:                  /usr/bin/cc
+    C flags (Release):           -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Wno-comment -Wimplicit-fallthrough=3 -Wno-strict-overflow -fdiagnostics-show-option -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections    -fvisibility=hidden -O3 -DNDEBUG  -DNDEBUG
+    C flags (Debug):             -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Wno-comment -Wimplicit-fallthrough=3 -Wno-strict-overflow -fdiagnostics-show-option -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections    -fvisibility=hidden -g  -O0 -DDEBUG -D_DEBUG
+    Linker flags (Release):      -Wl,--gc-sections -Wl,--as-needed  
+    Linker flags (Debug):        -Wl,--gc-sections -Wl,--as-needed  
+    ccache:                      NO
+    Precompiled headers:         NO
+    Extra dependencies:          dl m pthread rt
+    3rdparty dependencies:
+
+  OpenCV modules:
+    To be built:                 calib3d core dnn features2d flann gapi highgui imgcodecs imgproc ml objdetect photo python2 python3 stitching ts video videoio
+    Disabled:                    world
+    Disabled by dependency:      -
+    Unavailable:                 java
+    Applications:                tests perf_tests examples apps
+    Documentation:               NO
+    Non-free algorithms:         NO
+
+  GUI:                           GTK2
+    GTK+:                        YES (ver 2.24.32)
+      GThread :                  YES (ver 2.64.6)
+      GtkGlExt:                  NO
+
+  Media I/O: 
+    ZLib:                        /usr/lib/aarch64-linux-gnu/libz.so (ver 1.2.11)
+    JPEG:                        /usr/lib/aarch64-linux-gnu/libjpeg.so (ver 80)
+    WEBP:                        build (ver encoder: 0x020f)
+    PNG:                         /usr/lib/aarch64-linux-gnu/libpng.so (ver 1.6.37)
+    TIFF:                        /usr/lib/aarch64-linux-gnu/libtiff.so (ver 42 / 4.1.0)
+    JPEG 2000:                   build (ver 2.4.0)
+    HDR:                         YES
+    SUNRASTER:                   YES
+    PXM:                         YES
+    PFM:                         YES
+
+  Video I/O:
+    FFMPEG:                      YES
+      avcodec:                   YES (58.54.100)
+      avformat:                  YES (58.29.100)
+      avutil:                    YES (56.31.100)
+      swscale:                   YES (5.5.100)
+      avresample:                YES (4.0.0)
+    GStreamer:                   YES (1.16.2)
+    v4l/v4l2:                    YES (linux/videodev2.h)
+
+  Parallel framework:            TBB (ver 2020.1 interface 11101)
+
+  Trace:                         YES (with Intel ITT)
+
+  Other third-party libraries:
+    Lapack:                      NO
+    Eigen:                       YES (ver 3.3.7)
+    Custom HAL:                  YES (carotene (ver 0.0.1))
+    Protobuf:                    build (3.5.1)
+
+  Python 2:
+    Interpreter:                 /usr/bin/python2.7 (ver 2.7.18)
+    Libraries:                   /usr/lib/aarch64-linux-gnu/libpython2.7.so (ver 2.7.18)
+    numpy:                       /usr/lib/python2.7/dist-packages/numpy/core/include (ver 1.16.5)
+    install path:                lib/python2.7/dist-packages/cv2/python-2.7
+
+  Python 3:
+    Interpreter:                 /usr/bin/python3 (ver 3.8.10)
+    Libraries:                   /usr/lib/aarch64-linux-gnu/libpython3.8.so (ver 3.8.10)
+    numpy:                       /usr/lib/python3/dist-packages/numpy/core/include (ver 1.17.4)
+    install path:                lib/python3.8/dist-packages/cv2/python-3.8
+
+  Python (for build):            /usr/bin/python2.7
+
+  Java:                          
+    ant:                         NO
+    JNI:                         NO
+    Java wrappers:               NO
+    Java tests:                  NO
+
+  Install to:                    /usr
+-----------------------------------------------------------------
+```
