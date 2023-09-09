@@ -1,7 +1,9 @@
-# Try03: OpenCV
+# Try03: OpenCV 2nd try on fresh install
 *using venv*
 
-install:
+# install:
+
+## 1 preparation
 ```
 conda deactivate
 pip3 install virtualenv
@@ -19,25 +21,31 @@ pip3 install -U absl-py==0.9.0 py-cpuinfo==7.0.0 psutil==5.7.2 portpicker==1.3.1
 pip3 install -U gdown
 ```
 
+## 2 tensorflow
+https://docs.nvidia.com/deeplearning/frameworks/install-tf-jetson-platform/index.html
 ```
-pip3 install --pre --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v512/tensorflow/ tensorflow
-# tensorflow-2.12.0+nv23.06-cp38-cp38-linux_aarch64.whl
+pip3 install -U numpy grpcio absl-py py-cpuinfo psutil portpicker six mock requests gast h5py astor termcolor protobuf keras-applications keras-preprocessing wrapt google-pasta setuptools testresources
+pip3 install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v512 tensorflow==2.12.0+nv23.06
 ```
 
-```
-pip install --upgrade numpy scipy
-```
+## 3 donkey
 
 ```
 git clone https://github.com/autorope/donkeycar
 cd donkeycar
 git checkout main
 pip3 install -e .[nano]
+pip install -U albumentations --no-binary qudida,albumentations
+
+export LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libnvinfer.so.8:/usr/lib/aarch64-linux-gnu/libgomp.so.1
+```
+```
+pip install kivy
 ```
 
-results:
+# results:
 ```
-(env) rainer@donkey-orin:~$ python
+(env) rainer@ubuntu:~$ python3
 Python 3.8.10 (default, May 26 2023, 14:05:08) 
 [GCC 9.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
@@ -142,25 +150,45 @@ General configuration for OpenCV 4.5.4 =====================================
 
   Install to:                    /usr
 -----------------------------------------------------------------
+
+
+>>> import tensorflow as tf
+>>> tf.__version__
+'2.12.0'
+>>> from tensorflow.python.compiler.tensorrt import trt_convert as trt
+>>> trt._check_trt_version_compatibility()
+INFO:tensorflow:Linked TensorRT version: (8, 5, 2)
+INFO:tensorflow:Loaded TensorRT version: (8, 5, 2)
+>>> 
 ```
 
+# but importing tf before cv2
 ```
-(env) rainer@donkey-orin:~$ python3
+(env) rainer@ubuntu:~$ python3
 Python 3.8.10 (default, May 26 2023, 14:05:08) 
 [GCC 9.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>> import tensorflow as tf
-/usr/lib/python3/dist-packages/pandas/util/testing.py:28: FutureWarning: In the future `np.bool` will be defined as the corresponding NumPy scalar.
-  import pandas._libs.testing as _testing
->>> tf.__version__
-'2.13.0'
->>> from tensorflow.python.compiler.tensorrt import trt_convert as trt
->>> trt._check_trt_version_compatibility()
-ERROR:tensorflow:Tensorflow needs to be built with TensorRT support enabled to allow TF-TRT to operate.
+>>> import cv2
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-  File "/home/rainer/env/lib/python3.8/site-packages/tensorflow/python/compiler/tensorrt/trt_convert.py", line 223, in _check_trt_version_compatibility
-    raise RuntimeError("Tensorflow has not been built with TensorRT support.")
-RuntimeError: Tensorflow has not been built with TensorRT support.
+  File "/usr/lib/python3.8/dist-packages/cv2/__init__.py", line 180, in <module>
+    bootstrap()
+  File "/usr/lib/python3.8/dist-packages/cv2/__init__.py", line 152, in bootstrap
+    native_module = importlib.import_module("cv2")
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+ImportError: /lib/aarch64-linux-gnu/libgomp.so.1: cannot allocate memory in static TLS block
 >>> 
+```
+
+# vice versa
+```
+(env) rainer@ubuntu:~$ python3
+Python 3.8.10 (default, May 26 2023, 14:05:08) 
+[GCC 9.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import cv2
+>>> import tensorflow as tf
+>>> quit()
 ```
