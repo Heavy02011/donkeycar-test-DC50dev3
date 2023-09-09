@@ -12,7 +12,7 @@ echo "source env/bin/activate" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-## the following section has been ommitted
+## the following section has been omitted
 ```
 pip3 install -U pip testresources setuptools
 pip3 install -U futures==3.1.1 protobuf==3.12.2 pybind11==2.5.0
@@ -303,7 +303,7 @@ scikit-image                     0.21.0
 scikit-learn                     1.3.0
 ```
 
-## comppiling scikit-learn
+## compiling scikit-learn
 ```
 pip uninstall scikit-learn
 git clone https://github.com/scikit-learn/scikit-learn.git
