@@ -32,19 +32,10 @@ export LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libnvinfer.so.8:/usr/lib/aarch64-li
 ```
 
 ## 1.4 fixes 
-
-### 1.4.1 missing install from conda
 ```
 pip uninstall opencv-python-headless
-pip install kivy pillow pylint pytest pytest-cov codecov moviepy PrettyTable mypy pyyaml fastai
+pip install kivy==2.1.0 pillow pylint pytest pytest-cov codecov moviepy PrettyTable mypy pyyaml fastai
 ```
-
-## 1.4.2 donkey ui crash
-```
-pip install kivy==2.1.0
-```
-
-
 
 # 2 test results
 ```
