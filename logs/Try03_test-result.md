@@ -349,7 +349,10 @@ qudida 0.0.4 requires opencv-python-headless>=4.0.1, which is not installed.
 Successfully installed scikit-learn-1.3.0
 (env) rainer@ubuntu:~/mycar$ python train.py --
 ```
-
+## fix donkey ui crash
+```
+pip install kivy==2.1.0
+```
 
 # additional links
 https://www.hackster.io/wallarug/donkey-car-with-jetson-nano-robo-hat-mm1-e53e21
