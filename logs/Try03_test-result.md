@@ -12,6 +12,7 @@ echo "source env/bin/activate" >> ~/.bashrc
 source ~/.bashrc
 ```
 
+## the following section has been ommitted
 ```
 pip3 install -U pip testresources setuptools
 pip3 install -U futures==3.1.1 protobuf==3.12.2 pybind11==2.5.0
@@ -300,6 +301,53 @@ WARNING:kivy:stderr: Python version, your operating system and your platform.
 (env) rainer@ubuntu:~/projects/donkeycar$ pip list|grep scikit
 scikit-image                     0.21.0
 scikit-learn                     1.3.0
+```
+
+## comppiling scikit-learn
+```
+pip uninstall scikit-learn
+git clone https://github.com/scikit-learn/scikit-learn.git
+cd scikit-learn/
+python setup.py install
+```
+```
+Installed /home/rainer/env/lib/python3.8/site-packages/scikit_learn-1.4.dev0-py3.8-linux-aarch64.egg
+Processing dependencies for scikit-learn==1.4.dev0
+Searching for threadpoolctl==3.2.0
+Best match: threadpoolctl 3.2.0
+Adding threadpoolctl 3.2.0 to easy-install.pth file
+detected new path './scikit_learn-1.4.dev0-py3.8-linux-aarch64.egg'
+
+Using /home/rainer/env/lib/python3.8/site-packages
+Searching for joblib==1.3.2
+Best match: joblib 1.3.2
+Adding joblib 1.3.2 to easy-install.pth file
+
+Using /home/rainer/env/lib/python3.8/site-packages
+Searching for scipy==1.10.1
+Best match: scipy 1.10.1
+Adding scipy 1.10.1 to easy-install.pth file
+
+Using /usr/local/lib/python3.8/dist-packages
+Searching for numpy==1.23.5
+Best match: numpy 1.23.5
+Adding numpy 1.23.5 to easy-install.pth file
+Installing f2py script to /home/rainer/env/bin
+Installing f2py3 script to /home/rainer/env/bin
+Installing f2py3.8 script to /home/rainer/env/bin
+
+Using /home/rainer/env/lib/python3.8/site-packages
+Finished processing dependencies for scikit-learn==1.4.dev0
+```
+
+
+## Attention Dependency conflict qudida // opencv-python-headless>=4.0.1
+```
+Installing collected packages: scikit-learn
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+qudida 0.0.4 requires opencv-python-headless>=4.0.1, which is not installed.
+Successfully installed scikit-learn-1.3.0
+(env) rainer@ubuntu:~/mycar$ python train.py --
 ```
 
 
