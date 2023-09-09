@@ -39,8 +39,12 @@ pip install -U albumentations --no-binary qudida,albumentations
 
 export LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libnvinfer.so.8:/usr/lib/aarch64-linux-gnu/libgomp.so.1
 ```
+
+## fixes for missing install from conda
 ```
-pip install kivy
+pip uninstall opencv-python-headless
+pip install kivy pillow pylint pytest pytest-cov codecov moviepy PrettyTable mypy pyyaml fastai
+
 ```
 
 # results:
@@ -162,33 +166,142 @@ INFO:tensorflow:Loaded TensorRT version: (8, 5, 2)
 >>> 
 ```
 
-# but importing tf before cv2
+# donkey ui CRASHES
 ```
-(env) rainer@ubuntu:~$ python3
-Python 3.8.10 (default, May 26 2023, 14:05:08) 
-[GCC 9.4.0] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> import tensorflow as tf
->>> import cv2
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "/usr/lib/python3.8/dist-packages/cv2/__init__.py", line 180, in <module>
-    bootstrap()
-  File "/usr/lib/python3.8/dist-packages/cv2/__init__.py", line 152, in bootstrap
-    native_module = importlib.import_module("cv2")
-  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-ImportError: /lib/aarch64-linux-gnu/libgomp.so.1: cannot allocate memory in static TLS block
->>> 
+...
+
+DEBUG:matplotlib:CACHEDIR=/home/rainer/.cache/matplotlib
+[DEBUG  ] CACHEDIR=/home/rainer/.cache/matplotlib
+DEBUG:matplotlib.font_manager:Using fontManager instance from /home/rainer/.cache/matplotlib/fontlist-v310.json
+[DEBUG  ] Using fontManager instance from /home/rainer/.cache/matplotlib/fontlist-v310.json
+INFO:kivy:Factory: 190 symbols loaded
+[INFO   ] [Factory     ] 190 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+[INFO   ] [Image       ] Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+[INFO   ] [Text        ] Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+[INFO   ] [Window      ] Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+[INFO   ] [GL          ] Using the "OpenGL" graphics system
+INFO:kivy:GL: Backend used <sdl2>
+[INFO   ] [GL          ] Backend used <sdl2>
+INFO:kivy:GL: OpenGL version <b'4.6.0 NVIDIA 35.4.1'>
+[INFO   ] [GL          ] OpenGL version <b'4.6.0 NVIDIA 35.4.1'>
+INFO:kivy:GL: OpenGL vendor <b'NVIDIA Corporation'>
+[INFO   ] [GL          ] OpenGL vendor <b'NVIDIA Corporation'>
+INFO:kivy:GL: OpenGL renderer <b'NVIDIA Tegra Orin (nvgpu)/integrated'>
+[INFO   ] [GL          ] OpenGL renderer <b'NVIDIA Tegra Orin (nvgpu)/integrated'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+[INFO   ] [GL          ] OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 NVIDIA'>
+[INFO   ] [GL          ] Shading version <b'4.60 NVIDIA'>
+INFO:kivy:GL: Texture max size <32768>
+[INFO   ] [GL          ] Texture max size <32768>
+INFO:kivy:GL: Texture max units <32>
+[INFO   ] [GL          ] Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+[INFO   ] [Window      ] auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+[INFO   ] [Window      ] virtual keyboard not allowed, single mode, not docked
+WARNING:kivy:stderr: Traceback (most recent call last):
+ Traceback (most recent call last):
+WARNING:kivy:stderr:   File "/home/rainer/env/lib/python3.8/site-packages/sklearn/__check_build/__init__.py", line 45, in <module>
+   File "/home/rainer/env/lib/python3.8/site-packages/sklearn/__check_build/__init__.py", line 45, in <module>
+WARNING:kivy:stderr:     from ._check_build import check_build  # noqa
+     from ._check_build import check_build  # noqa
+WARNING:kivy:stderr: ImportError: /home/rainer/env/lib/python3.8/site-packages/sklearn/__check_build/../../scikit_learn.libs/libgomp-d22c30c5.so.1.0.0: cannot allocate memory in static TLS block
+ ImportError: /home/rainer/env/lib/python3.8/site-packages/sklearn/__check_build/../../scikit_learn.libs/libgomp-d22c30c5.so.1.0.0: cannot allocate memory in static TLS block
+WARNING:kivy:stderr: 
+ 
+WARNING:kivy:stderr: During handling of the above exception, another exception occurred:
+ During handling of the above exception, another exception occurred:
+WARNING:kivy:stderr: 
+ 
+WARNING:kivy:stderr: Traceback (most recent call last):
+ Traceback (most recent call last):
+WARNING:kivy:stderr:   File "/home/rainer/env/bin/donkey", line 33, in <module>
+   File "/home/rainer/env/bin/donkey", line 33, in <module>
+WARNING:kivy:stderr:     sys.exit(load_entry_point('donkeycar', 'console_scripts', 'donkey')())
+     sys.exit(load_entry_point('donkeycar', 'console_scripts', 'donkey')())
+WARNING:kivy:stderr:   File "/home/rainer/projects/donkeycar/donkeycar/management/base.py", line 626, in execute_from_command_line
+   File "/home/rainer/projects/donkeycar/donkeycar/management/base.py", line 626, in execute_from_command_line
+WARNING:kivy:stderr:     c.run(args[2:])
+     c.run(args[2:])
+WARNING:kivy:stderr:   File "/home/rainer/projects/donkeycar/donkeycar/management/base.py", line 597, in run
+   File "/home/rainer/projects/donkeycar/donkeycar/management/base.py", line 597, in run
+WARNING:kivy:stderr:     from donkeycar.management.kivy_ui import main
+     from donkeycar.management.kivy_ui import main
+WARNING:kivy:stderr:   File "/home/rainer/projects/donkeycar/donkeycar/management/kivy_ui.py", line 39, in <module>
+   File "/home/rainer/projects/donkeycar/donkeycar/management/kivy_ui.py", line 39, in <module>
+WARNING:kivy:stderr:     from donkeycar.pipeline.augmentations import ImageAugmentation
+     from donkeycar.pipeline.augmentations import ImageAugmentation
+WARNING:kivy:stderr:   File "/home/rainer/projects/donkeycar/donkeycar/pipeline/augmentations.py", line 1, in <module>
+   File "/home/rainer/projects/donkeycar/donkeycar/pipeline/augmentations.py", line 1, in <module>
+WARNING:kivy:stderr:     import albumentations.core.transforms_interface
+     import albumentations.core.transforms_interface
+WARNING:kivy:stderr:   File "/home/rainer/env/lib/python3.8/site-packages/albumentations/__init__.py", line 5, in <module>
+   File "/home/rainer/env/lib/python3.8/site-packages/albumentations/__init__.py", line 5, in <module>
+WARNING:kivy:stderr:     from .augmentations import *
+     from .augmentations import *
+WARNING:kivy:stderr:   File "/home/rainer/env/lib/python3.8/site-packages/albumentations/augmentations/__init__.py", line 8, in <module>
+   File "/home/rainer/env/lib/python3.8/site-packages/albumentations/augmentations/__init__.py", line 8, in <module>
+WARNING:kivy:stderr:     from .domain_adaptation import *
+     from .domain_adaptation import *
+WARNING:kivy:stderr:   File "/home/rainer/env/lib/python3.8/site-packages/albumentations/augmentations/domain_adaptation.py", line 6, in <module>
+   File "/home/rainer/env/lib/python3.8/site-packages/albumentations/augmentations/domain_adaptation.py", line 6, in <module>
+WARNING:kivy:stderr:     from qudida import DomainAdapter
+     from qudida import DomainAdapter
+WARNING:kivy:stderr:   File "/home/rainer/env/lib/python3.8/site-packages/qudida/__init__.py", line 6, in <module>
+   File "/home/rainer/env/lib/python3.8/site-packages/qudida/__init__.py", line 6, in <module>
+WARNING:kivy:stderr:     from sklearn.decomposition import PCA
+     from sklearn.decomposition import PCA
+WARNING:kivy:stderr:   File "/home/rainer/env/lib/python3.8/site-packages/sklearn/__init__.py", line 79, in <module>
+   File "/home/rainer/env/lib/python3.8/site-packages/sklearn/__init__.py", line 79, in <module>
+WARNING:kivy:stderr:     from . import (
+     from . import (
+WARNING:kivy:stderr:   File "/home/rainer/env/lib/python3.8/site-packages/sklearn/__check_build/__init__.py", line 47, in <module>
+   File "/home/rainer/env/lib/python3.8/site-packages/sklearn/__check_build/__init__.py", line 47, in <module>
+WARNING:kivy:stderr:     raise_build_error(e)
+     raise_build_error(e)
+WARNING:kivy:stderr:   File "/home/rainer/env/lib/python3.8/site-packages/sklearn/__check_build/__init__.py", line 31, in raise_build_error
+   File "/home/rainer/env/lib/python3.8/site-packages/sklearn/__check_build/__init__.py", line 31, in raise_build_error
+WARNING:kivy:stderr:     raise ImportError("""%s
+     raise ImportError("""%s
+WARNING:kivy:stderr: ImportError: /home/rainer/env/lib/python3.8/site-packages/sklearn/__check_build/../../scikit_learn.libs/libgomp-d22c30c5.so.1.0.0: cannot allocate memory in static TLS block
+ ImportError: /home/rainer/env/lib/python3.8/site-packages/sklearn/__check_build/../../scikit_learn.libs/libgomp-d22c30c5.so.1.0.0: cannot allocate memory in static TLS block
+WARNING:kivy:stderr: ___________________________________________________________________________
+ ___________________________________________________________________________
+WARNING:kivy:stderr: Contents of /home/rainer/env/lib/python3.8/site-packages/sklearn/__check_build:
+ Contents of /home/rainer/env/lib/python3.8/site-packages/sklearn/__check_build:
+WARNING:kivy:stderr: _check_build.cpython-38-aarch64-linux-gnu.so__init__.py               __pycache__
+ _check_build.cpython-38-aarch64-linux-gnu.so__init__.py               __pycache__
+WARNING:kivy:stderr: ___________________________________________________________________________
+ ___________________________________________________________________________
+WARNING:kivy:stderr: It seems that scikit-learn has not been built correctly.
+ It seems that scikit-learn has not been built correctly.
+WARNING:kivy:stderr: 
+ 
+WARNING:kivy:stderr: If you have installed scikit-learn from source, please do not forget
+ If you have installed scikit-learn from source, please do not forget
+WARNING:kivy:stderr: to build the package before using it: run `python setup.py install` or
+ to build the package before using it: run `python setup.py install` or
+WARNING:kivy:stderr: `make` in the source directory.
+ `make` in the source directory.
+WARNING:kivy:stderr: 
+ 
+WARNING:kivy:stderr: If you have used an installer, please check that it is suited for your
+ If you have used an installer, please check that it is suited for your
+WARNING:kivy:stderr: Python version, your operating system and your platform.
+ Python version, your operating system and your platform.
 ```
 
-# vice versa
 ```
-(env) rainer@ubuntu:~$ python3
-Python 3.8.10 (default, May 26 2023, 14:05:08) 
-[GCC 9.4.0] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> import cv2
->>> import tensorflow as tf
->>> quit()
+(env) rainer@ubuntu:~/projects/donkeycar$ pip list|grep scikit
+scikit-image                     0.21.0
+scikit-learn                     1.3.0
 ```
+
+
+# additional links
+https://www.hackster.io/wallarug/donkey-car-with-jetson-nano-robo-hat-mm1-e53e21
